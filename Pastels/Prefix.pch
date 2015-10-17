@@ -1,0 +1,13 @@
+//
+//  Prefix.pch
+//  Pastel
+//
+//  Created by Fabio on 10/07/2015.
+//  Copyright (c) 2015 orange in a day. All rights reserved.
+//
+
+#ifdef __OBJC__
+@import Foundation;
+@import Cocoa;
+#import "JRSwizzle.h"
+#endif
