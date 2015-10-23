@@ -16,7 +16,6 @@
 		E57ABA491BC7CE8400C28200 /* IBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA481BC7CE8400C28200 /* IBFoundation.framework */; };
 		E57ABA511BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA501BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework */; };
 		E57ABA5A1BC7FA0F00C28200 /* PastelsiOSSupport.framework in Resources */ = {isa = PBXBuildFile; fileRef = E5A586521BC5992F00CD7526 /* PastelsiOSSupport.framework */; };
-		E57ABA5D1BC7FACE00C28200 /* DVTTask+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E57ABA5C1BC7FACE00C28200 /* DVTTask+Pastels.m */; };
 		E57ABA5F1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA5E1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration */; };
 		E57ABA631BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E57ABA621BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.m */; };
 		E59FFBA41BC9364100308DCB /* IBBinaryArchiver+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E59FFBA31BC9364100308DCB /* IBBinaryArchiver+Pastels.m */; };
@@ -52,8 +51,6 @@
 		E57ABA4A1BC7CE9C00C28200 /* IBFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBFoundation.h; sourceTree = "<group>"; };
 		E57ABA501BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IBCocoaTouchToolFoundation.framework; path = Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/IBCocoaTouchToolFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		E57ABA571BC7F87200C28200 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		E57ABA5B1BC7FACE00C28200 /* DVTTask+Pastels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTTask+Pastels.h"; sourceTree = "<group>"; };
-		E57ABA5C1BC7FACE00C28200 /* DVTTask+Pastels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTTask+Pastels.m"; sourceTree = "<group>"; };
 		E57ABA5E1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = IDEInterfaceBuilderCocoaTouchIntegration; path = ../PlugIns/IDEInterfaceBuilderCocoaTouchIntegration.ideplugin/Contents/MacOS/IDEInterfaceBuilderCocoaTouchIntegration; sourceTree = DEVELOPER_DIR; };
 		E57ABA601BC8024E00C28200 /* IDEInterfaceBuilderCocoaTouchIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEInterfaceBuilderCocoaTouchIntegration.h; sourceTree = "<group>"; };
 		E57ABA611BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBAbstractPlatformToolExecutionContext+Pastels.h"; sourceTree = "<group>"; };
@@ -176,8 +173,6 @@
 				E571E8581BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m */,
 				E59FFBA21BC9364100308DCB /* IBBinaryArchiver+Pastels.h */,
 				E59FFBA31BC9364100308DCB /* IBBinaryArchiver+Pastels.m */,
-				E57ABA5B1BC7FACE00C28200 /* DVTTask+Pastels.h */,
-				E57ABA5C1BC7FACE00C28200 /* DVTTask+Pastels.m */,
 				E57ABA611BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.h */,
 				E57ABA621BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.m */,
 			);
@@ -380,7 +375,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E518B2E41BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m in Sources */,
-				E57ABA5D1BC7FACE00C28200 /* DVTTask+Pastels.m in Sources */,
 				E571E8591BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m in Sources */,
 				E5E2569D1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m in Sources */,
 				E59FFBA41BC9364100308DCB /* IBBinaryArchiver+Pastels.m in Sources */,

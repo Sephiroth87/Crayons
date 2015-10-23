@@ -49,19 +49,13 @@
     IBCocoaTouchPlatformToolDescription *platformDescription = [[IBCocoaTouchPlatformToolDescription alloc] initWithTargetRuntime:runtime role:1 scaleFactor:self.window.backingScaleFactor];
     IBCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededWithDescription:platformDescription returningFailedLoadResult:nil];
 
-    // Xcode 6.4
-//    IBMessageChannelCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededForTargetRuntime:runtime scaleFactor:@(self.window.backingScaleFactor) backgroundOperationIdentifier:nil queue:nil returningFailedLoadResult:NULL];
-//    IBMessageSendChannel *channel = [tool channel];
-//    NSDictionary *palettes = nil;
-//    [channel sendMessage:NSSelectorFromString(@"yeah") returnValue:&palettes context:nil error:nil arguments:0];
-    
     NSDictionary *palettes = [tool sendMessage:NSSelectorFromString(@"palettesForClassesAndColorNames:") toChannelDuring:^BOOL(SEL arg1, id arg2, id *arg3) {
         IBMessageSendChannel *channel = arg2;
         [channel sendMessage:arg1 returnValue:arg3 context:@{PastelsIBMessageSendChannelCustomParametersKey: colorNamesForClasses} error:nil arguments:0];
         return YES;
     }];
     
-    NSLog(@"returned %@", palettes);
+    DLog(@"returned %@", palettes);
     
     if ([palettes count]) {
         NSMenu *colorsMenu = [self valueForKey: @"_colorsMenu"];

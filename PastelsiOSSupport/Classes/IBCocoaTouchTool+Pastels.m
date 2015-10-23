@@ -26,7 +26,7 @@
                 UIColor *color = [class performSelector:NSSelectorFromString(colorName)];
 #pragma clang diagnostic pop
                 if ([color isKindOfClass:[UIColor class]]) {
-                    NSLog(@"%@", color);
+                    DLog(@"%@", color);
                     CGColorSpaceRef colorSpace = CGColorGetColorSpace(color.CGColor);
                     if (CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelRGB) {
                         CGFloat r, g, b, a;
