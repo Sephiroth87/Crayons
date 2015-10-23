@@ -7,28 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E5006ED41BAB78D6008D04DF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED31BAB78D6008D04DF /* AppKit.framework */; settings = {ASSET_TAGS = (); }; };
-		E5006ED61BAB78D6008D04DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED51BAB78D6008D04DF /* Foundation.framework */; settings = {ASSET_TAGS = (); }; };
-		E5006EEA1BAB795A008D04DF /* Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E5006EE91BAB795A008D04DF /* Pastels.m */; settings = {ASSET_TAGS = (); }; };
-		E5006EF21BAB7975008D04DF /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = E5006EED1BAB7975008D04DF /* JRSwizzle.m */; settings = {ASSET_TAGS = (); }; };
-		E518B2E41BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E518B2E31BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m */; settings = {ASSET_TAGS = (); }; };
-		E571E8591BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E571E8581BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m */; settings = {ASSET_TAGS = (); }; };
+		E5006ED41BAB78D6008D04DF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED31BAB78D6008D04DF /* AppKit.framework */; };
+		E5006ED61BAB78D6008D04DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED51BAB78D6008D04DF /* Foundation.framework */; };
+		E5006EEA1BAB795A008D04DF /* Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E5006EE91BAB795A008D04DF /* Pastels.m */; };
+		E5006EF21BAB7975008D04DF /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = E5006EED1BAB7975008D04DF /* JRSwizzle.m */; };
+		E518B2E41BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E518B2E31BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m */; };
+		E571E8591BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E571E8581BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m */; };
 		E57ABA491BC7CE8400C28200 /* IBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA481BC7CE8400C28200 /* IBFoundation.framework */; };
 		E57ABA511BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA501BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework */; };
 		E57ABA5A1BC7FA0F00C28200 /* PastelsiOSSupport.framework in Resources */ = {isa = PBXBuildFile; fileRef = E5A586521BC5992F00CD7526 /* PastelsiOSSupport.framework */; };
-		E57ABA5D1BC7FACE00C28200 /* DVTTask+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E57ABA5C1BC7FACE00C28200 /* DVTTask+Pastels.m */; settings = {ASSET_TAGS = (); }; };
+		E57ABA5D1BC7FACE00C28200 /* DVTTask+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E57ABA5C1BC7FACE00C28200 /* DVTTask+Pastels.m */; };
 		E57ABA5F1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA5E1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration */; };
-		E57ABA631BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E57ABA621BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.m */; settings = {ASSET_TAGS = (); }; };
-		E59FFBA41BC9364100308DCB /* IBBinaryArchiver+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E59FFBA31BC9364100308DCB /* IBBinaryArchiver+Pastels.m */; settings = {ASSET_TAGS = (); }; };
-		E59FFBA71BC93F6700308DCB /* IBCocoaTouchTool+Pastels.h in Headers */ = {isa = PBXBuildFile; fileRef = E59FFBA51BC93F6700308DCB /* IBCocoaTouchTool+Pastels.h */; settings = {ASSET_TAGS = (); }; };
-		E59FFBA81BC93F6700308DCB /* IBCocoaTouchTool+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E59FFBA61BC93F6700308DCB /* IBCocoaTouchTool+Pastels.m */; settings = {ASSET_TAGS = (); }; };
+		E57ABA631BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E57ABA621BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Pastels.m */; };
+		E59FFBA41BC9364100308DCB /* IBBinaryArchiver+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E59FFBA31BC9364100308DCB /* IBBinaryArchiver+Pastels.m */; };
+		E59FFBA71BC93F6700308DCB /* IBCocoaTouchTool+Pastels.h in Headers */ = {isa = PBXBuildFile; fileRef = E59FFBA51BC93F6700308DCB /* IBCocoaTouchTool+Pastels.h */; };
+		E59FFBA81BC93F6700308DCB /* IBCocoaTouchTool+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E59FFBA61BC93F6700308DCB /* IBCocoaTouchTool+Pastels.m */; };
 		E5A586411BC3A8B900CD7526 /* IDEInterfaceBuilderKit in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A586401BC3A8B900CD7526 /* IDEInterfaceBuilderKit */; };
 		E5A586431BC3A91E00CD7526 /* IDEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A586421BC3A91E00CD7526 /* IDEKit.framework */; };
 		E5A586461BC3AB2900CD7526 /* IDEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A586451BC3AB2900CD7526 /* IDEFoundation.framework */; };
 		E5A5864B1BC570DA00CD7526 /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A5864A1BC570DA00CD7526 /* DVTFoundation.framework */; };
 		E5A586551BC5992F00CD7526 /* PastelsiOSSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = E5A586541BC5992F00CD7526 /* PastelsiOSSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E5E2569A1BACD28100382044 /* DVTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E256991BACD28100382044 /* DVTKit.framework */; settings = {ASSET_TAGS = (); }; };
-		E5E2569D1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2569C1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m */; settings = {ASSET_TAGS = (); }; };
+		E5E2569A1BACD28100382044 /* DVTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E256991BACD28100382044 /* DVTKit.framework */; };
+		E5E2569D1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2569C1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
