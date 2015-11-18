@@ -8,6 +8,7 @@
 
 #import "DVTColorPickerPopUpButton+Pastels.h"
 #import "IBBinaryArchiver+Pastels.h"
+#import "IDEWorkspace+Pastels.h"
 #import "IDEKit.h"
 #import "IDEInterfaceBuilderKit.h"
 #import "IDEFoundation.h"
@@ -28,61 +29,93 @@
     [self p_populateColorsMenu];
     IBInspectorViewController *inspector = [self inspectorViewController];
     IDEWorkspace *workspace = inspector.workspace;
-    NSMutableDictionary *colorNamesForClasses = [NSMutableDictionary new];
-    for (IDEIndexCallableSymbol *paletteNameMethod in [workspace.index allSymbolsMatchingNames:@[@"paletteName", @"paletteName()"] kind:[DVTSourceCodeSymbolKind classMethodSymbolKind]]) {
-        //TODO: Check for methods returning strings
-        IDEIndexClassSymbol *class = [paletteNameMethod containerSymbol];
-        NSMutableArray *colorNames = [NSMutableArray new];
-        for (IDEIndexCallableSymbol *method in [class classMethods]) {
-            //TODO: Any better way to check for swift return types?
-            if (([[[method returnType] name] isEqualToString:@"UIColor"] || [[method resolution] hasSuffix:@"UIColor"]) && [method numArguments] == 0) {
-                [colorNames addObject:[method name]];
+    NSArray *palettes = workspace.palettes;
+    [workspace updateColors:palettes];
+    NSMutableDictionary *colorsToUpdate = [NSMutableDictionary new];
+    NSMutableArray *namesToUpdate = [NSMutableArray new];
+    for (PastelsPalette *palette in palettes) {
+        NSMutableArray *colors = [NSMutableArray new];
+        [palette.colors enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            if (obj == [NSNull null]) {
+                [colors addObject:key];
             }
+        }];
+        if (colors.count) {
+            [colorsToUpdate setObject:colors forKey:palette.objcClassName];
         }
-        if (colorNames.count) {
-            colorNamesForClasses[[class name]] = colorNames;
+        if (!palette.name) {
+            [namesToUpdate addObject:palette.objcClassName];
         }
     }
-    IBStoryboardDocument *document = (IBStoryboardDocument *)inspector.inspectedDocument;
-    IBCocoaTouchTargetRuntime *runtime = [document cocoaTouchTargetRuntime];
-    IBLiveViewsManager *manager = [document liveViewsManager];
-    IBCocoaTouchPlatformToolDescription *platformDescription = [[IBCocoaTouchPlatformToolDescription alloc] initWithTargetRuntime:runtime role:1 scaleFactor:self.window.backingScaleFactor];
-    IBCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededWithDescription:platformDescription returningFailedLoadResult:nil];
-
-    NSDictionary *palettes = [tool sendMessage:NSSelectorFromString(@"palettesForClassesAndColorNames:") toChannelDuring:^BOOL(SEL arg1, id arg2, id *arg3) {
-        IBMessageSendChannel *channel = arg2;
-        [channel sendMessage:arg1 returnValue:arg3 context:@{PastelsIBMessageSendChannelCustomParametersKey: colorNamesForClasses} error:nil arguments:0];
-        return YES;
-    }];
-    
-    DLog(@"returned %@", palettes);
-    
+    if (colorsToUpdate.count || namesToUpdate.count) {
+        IBStoryboardDocument *document = (IBStoryboardDocument *)inspector.inspectedDocument;
+        IBCocoaTouchTargetRuntime *runtime = [document cocoaTouchTargetRuntime];
+        IBLiveViewsManager *manager = [document liveViewsManager];
+        IBCocoaTouchPlatformToolDescription *platformDescription = [[IBCocoaTouchPlatformToolDescription alloc] initWithTargetRuntime:runtime role:1 scaleFactor:self.window.backingScaleFactor];
+        IBCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededWithDescription:platformDescription returningFailedLoadResult:nil];
+        if (namesToUpdate.count) {
+            DLog(@"🖍 updating missing palette names: %@", namesToUpdate);
+            NSDictionary *updatedPaletteNames = [tool sendMessage:NSSelectorFromString(@"paletteNamesForClassNames:") toChannelDuring:^BOOL(SEL arg1, id arg2, id *arg3) {
+                IBMessageSendChannel *channel = arg2;
+                [channel sendMessage:arg1 returnValue:arg3 context:@{PastelsIBMessageSendChannelCustomParametersKey: namesToUpdate} error:nil arguments:0];
+                return YES;
+            }];
+            for (PastelsPalette *palette in palettes) {
+                NSString *updatedPaletteNameForClass = updatedPaletteNames[palette.objcClassName];
+                if (updatedPaletteNameForClass) {
+                    palette.name = updatedPaletteNameForClass;
+                }
+            }
+        }
+        if (colorsToUpdate.count) {
+            DLog(@"🖍 updating missing colors: %@", colorsToUpdate);
+            NSDictionary *updatedColors = [tool sendMessage:NSSelectorFromString(@"colorsForClassesAndColorNames:") toChannelDuring:^BOOL(SEL arg1, id arg2, id *arg3) {
+                IBMessageSendChannel *channel = arg2;
+                [channel sendMessage:arg1 returnValue:arg3 context:@{PastelsIBMessageSendChannelCustomParametersKey: colorsToUpdate} error:nil arguments:0];
+                return YES;
+            }];
+            for (PastelsPalette *palette in palettes) {
+                NSDictionary *updatedColorsForClass = updatedColors[palette.objcClassName];
+                if (updatedColorsForClass.count) {
+                    [palette.colors enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                        NSDictionary *colorDictionary = updatedColorsForClass[key];
+                        if (colorDictionary) {
+                            NSColor *color = nil;
+                            if (colorDictionary[@"R"] && colorDictionary[@"G"] && colorDictionary[@"B"] && colorDictionary[@"A"]) {
+                                color = [NSColor colorWithCalibratedRed:[colorDictionary[@"R"] floatValue] green:[colorDictionary[@"G"] floatValue] blue:[colorDictionary[@"B"] floatValue] alpha:[colorDictionary[@"A"] floatValue]];
+                            } else if (colorDictionary[@"W"] && colorDictionary[@"A"]) {
+                                color = [NSColor colorWithCalibratedWhite:[colorDictionary[@"W"] floatValue] alpha:[colorDictionary[@"A"] floatValue]];
+                            }
+                            palette.colors[key] = color;
+                        }
+                    }];
+                }
+            }
+        }
+    }
     if ([palettes count]) {
         NSMenu *colorsMenu = [self valueForKey: @"_colorsMenu"];
         [colorsMenu addItem:[NSMenuItem separatorItem]];
-        for (NSString *paletteName in [palettes.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]) {
-            NSMenuItem *item = [colorsMenu addItemWithTitle:paletteName action:nil keyEquivalent:@""];
-            NSMenu *paletteColorsMenu = [[NSMenu alloc] initWithTitle:paletteName];
-            NSDictionary *palette = palettes[paletteName];
-            for (NSString *colorName in [palette.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]) {
-                NSDictionary *colorDictionary = palette[colorName];
-                NSColor *color = nil;
-                if (colorDictionary[@"R"] && colorDictionary[@"G"] && colorDictionary[@"B"] && colorDictionary[@"A"]) {
-                    color = [NSColor colorWithCalibratedRed:[colorDictionary[@"R"] floatValue] green:[colorDictionary[@"G"] floatValue] blue:[colorDictionary[@"B"] floatValue] alpha:[colorDictionary[@"A"] floatValue]];
-                } else if (colorDictionary[@"W"] && colorDictionary[@"A"]) {
-                    color = [NSColor colorWithCalibratedWhite:[colorDictionary[@"W"] floatValue] alpha:[colorDictionary[@"A"] floatValue]];
+        NSArray *sortedPalettes = [palettes sortedArrayUsingComparator:^NSComparisonResult(PastelsPalette * _Nonnull obj1, PastelsPalette * _Nonnull obj2) {
+            return [obj1.name compare:obj2.name];
+        }];
+        for (PastelsPalette *palette in sortedPalettes) {
+            if (palette.name) {
+                NSMenuItem *item = [colorsMenu addItemWithTitle:palette.name action:nil keyEquivalent:@""];
+                NSMenu *paletteColorsMenu = [[NSMenu alloc] initWithTitle:palette.name];
+                for (NSString *colorName in [palette.colors.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]) {
+                    id color = palette.colors[colorName];
+                    if (color && color != [NSNull null]) {
+                        NSMenuItem *subItem = [paletteColorsMenu addItemWithTitle:IBIdentifierToEnglishName(colorName) action:@selector(takeDrawnColorFromPopUpMenu:) keyEquivalent:@""];
+                        subItem.representedObject = color;
+                        subItem.image = [self swatchImageForColor:color withSize:CGSizeMake(30.0f, 8.0f)];
+                        [subItem setTarget:self];
+                    }
                 }
-                if (color) {
-                    NSMenuItem *subItem = [paletteColorsMenu addItemWithTitle:IBIdentifierToEnglishName(colorName) action:@selector(takeDrawnColorFromPopUpMenu:) keyEquivalent:@""];
-                    subItem.representedObject = color;
-                    subItem.image = [self swatchImageForColor:color withSize:CGSizeMake(30.0f, 8.0f)];
-                    [subItem setTarget:self];
-                }
+                item.submenu = paletteColorsMenu;
             }
-            item.submenu = paletteColorsMenu;
         }
     }
-    
 }
 
 #pragma mark - Helpers

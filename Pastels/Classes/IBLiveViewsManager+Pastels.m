@@ -7,6 +7,7 @@
 //
 
 #import "IBLiveViewsManager+Pastels.h"
+#import "IDEWorkspace+Pastels.h"
 #import "IDEFoundation.h"
 #import "DVTFoundation.h"
 
@@ -14,23 +15,32 @@
 
 + (void)load
 {
-    //    [self jr_swizzleMethod:@selector(sourceCodeClassProvider:didParseFilePaths:encounteringClassesNamed:) withMethod:@selector(p_sourceCodeClassProvider:didParseFilePaths:encounteringClassesNamed:) error:NULL];
     [self jr_swizzleMethod:@selector(_mainThread_filePathsContainingLiveClassesForProvider:) withMethod:@selector(p__mainThread_filePathsContainingLiveClassesForProvider:) error:NULL];
+    [self jr_swizzleMethod:@selector(_mainThread_rebuildBlueprint:forSourceCodeCaseProvider:) withMethod:@selector(p__mainThread_rebuildBlueprint:forSourceCodeCaseProvider:) error:NULL];
 }
 
 - (id)p__mainThread_filePathsContainingLiveClassesForProvider:(id)arg1
 {
     NSMutableSet *result = [self p__mainThread_filePathsContainingLiveClassesForProvider:arg1];
-    IDEWorkspace *workspace = [arg1 workspace];
-    NSMutableDictionary *colorNamesForClasses = [NSMutableDictionary new];
-    for (IDEIndexCallableSymbol *paletteNameMethod in [workspace.index allSymbolsMatchingNames:@[@"paletteName", @"paletteName()"] kind:[DVTSourceCodeSymbolKind classMethodSymbolKind]]) {
-        //TODO: Check for methods returning strings
-        IDEIndexClassSymbol *class = [paletteNameMethod containerSymbol];
-        for (IDEIndexSymbol *definition in class.definitions) {
+    IDEWorkspace *workspace = ((IBSourceCodeClassProvider *)arg1).workspace;
+    for (PastelsPalette *palette in workspace.palettes) {
+        for (IDEIndexSymbol *definition in palette.classSymbol.definitions) {
             [result addObject:[definition file]];
         }
     }
     return result;
+}
+
+- (void)p__mainThread_rebuildBlueprint:(id)arg1 forSourceCodeCaseProvider:(id)arg2
+{
+    [self p__mainThread_rebuildBlueprint:arg1 forSourceCodeCaseProvider:arg2];
+    IDEWorkspace *workspace = ((IBSourceCodeClassProvider *)arg2).workspace;
+    for (PastelsPalette *palette in workspace.palettes) {
+        if (!palette.isValid) {
+            [palette invalidate];
+            palette.valid = YES;
+        }
+    }
 }
 
 @end

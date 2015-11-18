@@ -9,6 +9,7 @@
 @interface IDEIndex : NSObject
 
 - (id)allSymbolsMatchingNames:(id)arg1 kind:(id)arg2;
+- (void)doWhenFilesReady:(void (^)(void))arg1;
 
 @end
 

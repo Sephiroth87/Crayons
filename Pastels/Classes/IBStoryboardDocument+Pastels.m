@@ -7,27 +7,56 @@
 //
 
 #import "IBStoryboardDocument+Pastels.h"
+#import "IDEWorkspace+Pastels.h"
 
 @implementation IBStoryboardDocument (Pastels)
 
 + (void)load
 {
-//    [self jr_swizzleMethod:@selector(sourceCodeClassProvider:didParseFilePaths:encounteringClassesNamed:) withMethod:@selector(p_sourceCodeClassProvider:didParseFilePaths:encounteringClassesNamed:) error:NULL];
     [self jr_swizzleMethod:@selector(classDescriber:didModifyClasses:) withMethod:@selector(p_classDescriber:didModifyClasses:) error:NULL];
 }
 
-//- (void)p_sourceCodeClassProvider:(id)arg1 didParseFilePaths:(id)arg2 encounteringClassesNamed:(id)arg3
-//{
-//    [self p_sourceCodeClassProvider:arg1 didParseFilePaths:arg2 encounteringClassesNamed:arg3];
-//}
+- (void)enableLiveViewsManagerIfNeeded
+{
+    IBLiveViewsManager *liveViewsManager = [self liveViewsManager];
+    if (liveViewsManager && !liveViewsManager.isEnabled) {
+        NSArray *palettes = [[self effectiveWorkspaceDocument] workspace].palettes;
+        if (palettes.count) {
+            DLog(@"🖍 LiveViewsManager enabled");
+            liveViewsManager.enabled = YES;
+            for (PastelsPalette *palette in palettes) {
+                [liveViewsManager invalidateBundleForClassNamed:palette.classSymbol.name inDocument:self forceRebuild:NO];
+            }
+        }
+    }
+}
 
 - (void)p_classDescriber:(id)arg1 didModifyClasses:(id)arg2
 {
     [self p_classDescriber:arg1 didModifyClasses:arg2];
-    //TODO: Add smarter rules on when to enable/disable the manager
-    [[self liveViewsManager] setEnabled:YES];
-    for (NSString *class in arg2) {
-        [[self liveViewsManager] invalidateBundleForClassNamed:class inDocument:self forceRebuild:NO];
+    IDEWorkspace *workspace = [[self effectiveWorkspaceDocument] workspace];
+    NSArray *palettes = workspace.palettes;
+    IBLiveViewsManager *liveViewsManager = [self liveViewsManager];
+    if (liveViewsManager) {
+        if (liveViewsManager.isEnabled) {
+            for (PastelsPalette *palette in palettes) {
+                NSString *className = palette.classSymbol.name;
+                if ([arg2 containsObject:className] && !palette.isValid) {
+                    DLog(@"🖍 invalidate bundle class %@", className);
+                    [liveViewsManager invalidateBundleForClassNamed:className inDocument:self forceRebuild:NO];
+                }
+            }
+        } else {
+            if (palettes.count) {
+                [self enableLiveViewsManagerIfNeeded];
+            } else if (!liveViewsManager.isEnabled) {
+                [workspace.index doWhenFilesReady:^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self enableLiveViewsManagerIfNeeded];
+                    });
+                }];
+            }
+        }
     }
 }
 

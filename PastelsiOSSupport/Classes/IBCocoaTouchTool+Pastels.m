@@ -12,13 +12,30 @@
 
 @implementation IBCocoaTouchTool (Pastels)
 
-- (NSDictionary *)palettesForClassesAndColorNames:(NSDictionary *)classesAndColorNames
+- (NSDictionary *)paletteNamesForClassNames:(NSArray *)classNames
 {
-    NSMutableDictionary *palettes = [NSMutableDictionary new];
-    for (NSString *className in classesAndColorNames.allKeys) {
-        NSMutableDictionary *palette = [NSMutableDictionary new];
+    NSMutableDictionary *paletteNames = [NSMutableDictionary new];
+    for (NSString *className in classNames) {
         Class class = objc_getClass([className cStringUsingEncoding:NSUTF8StringEncoding]);
-        //TODO: add swift support
+        if ([class respondsToSelector:NSSelectorFromString(@"paletteName")]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            NSString *paletteName = [class performSelector:NSSelectorFromString(@"paletteName")];
+#pragma clang diagnostic pop
+            if ([paletteName isKindOfClass:[NSString class]]) {
+                paletteNames[className] = paletteName;
+            }
+        }
+    }
+    return paletteNames;
+}
+
+- (NSDictionary *)colorsForClassesAndColorNames:(NSDictionary *)classesAndColorNames
+{
+    NSMutableDictionary *colors = [NSMutableDictionary new];
+    for (NSString *className in classesAndColorNames.allKeys) {
+        NSMutableDictionary *classColors = [NSMutableDictionary new];
+        Class class = objc_getClass([className cStringUsingEncoding:NSUTF8StringEncoding]);
         for (NSString *colorName in classesAndColorNames[className]) {
             if ([class respondsToSelector:NSSelectorFromString(colorName)]) {
 #pragma clang diagnostic push
@@ -26,27 +43,26 @@
                 UIColor *color = [class performSelector:NSSelectorFromString(colorName)];
 #pragma clang diagnostic pop
                 if ([color isKindOfClass:[UIColor class]]) {
-                    DLog(@"%@", color);
                     CGColorSpaceRef colorSpace = CGColorGetColorSpace(color.CGColor);
                     if (CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelRGB) {
                         CGFloat r, g, b, a;
                         if ([color getRed:&r green:&g blue:&b alpha:&a]) {
-                            palette[colorName] = @{@"R": @(r), @"G": @(g), @"B": @(b), @"A": @(a)};
+                            classColors[colorName] = @{@"R": @(r), @"G": @(g), @"B": @(b), @"A": @(a)};
                         }
                     } else if (CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelMonochrome) {
                         CGFloat w, a;
                         if ([color getWhite:&w alpha:&a]) {
-                            palette[colorName] = @{@"W": @(w), @"A": @(a)};
+                            classColors[colorName] = @{@"W": @(w), @"A": @(a)};
                         }
                     }
                 }
             }
         }
-        if (palette.count) {
-            palettes[className] = palette;
+        if (classColors.count) {
+            colors[className] = classColors;
         }
     }
-    return palettes;
+    return colors;
 }
 
 @end

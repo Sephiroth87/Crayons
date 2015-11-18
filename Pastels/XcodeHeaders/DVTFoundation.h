@@ -11,17 +11,3 @@
 + (id)classMethodSymbolKind;
 
 @end
-
-@interface NSString (DVTFoundationClassAdditions)
-
-- (id)dvt_capitalizedWordsFromString;
-
-@end
-
-@interface DVTTask : NSObject
-
-@property(copy) NSString *launchPath;
-
-- (void)setValue:(id)arg1 forEnvironmentVariableNamed:(id)arg2;
-
-@end

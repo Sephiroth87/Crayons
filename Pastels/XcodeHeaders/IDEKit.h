@@ -16,3 +16,9 @@
 
 @interface IDEInspectorViewController : IDEViewController
 @end
+
+@interface IDEWorkspaceDocument : NSDocument
+
+@property(readonly) IDEWorkspace *workspace;
+
+@end

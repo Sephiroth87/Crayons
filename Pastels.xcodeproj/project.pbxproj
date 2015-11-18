@@ -11,6 +11,7 @@
 		E5006ED61BAB78D6008D04DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED51BAB78D6008D04DF /* Foundation.framework */; };
 		E5006EEA1BAB795A008D04DF /* Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E5006EE91BAB795A008D04DF /* Pastels.m */; };
 		E5006EF21BAB7975008D04DF /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = E5006EED1BAB7975008D04DF /* JRSwizzle.m */; };
+		E51035A01BF260CA00911CC5 /* PastelsPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = E510359F1BF260CA00911CC5 /* PastelsPalette.m */; };
 		E518B2E41BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E518B2E31BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m */; };
 		E571E8591BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E571E8581BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m */; };
 		E57ABA491BC7CE8400C28200 /* IBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA481BC7CE8400C28200 /* IBFoundation.framework */; };
@@ -26,6 +27,8 @@
 		E5A586461BC3AB2900CD7526 /* IDEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A586451BC3AB2900CD7526 /* IDEFoundation.framework */; };
 		E5A5864B1BC570DA00CD7526 /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A5864A1BC570DA00CD7526 /* DVTFoundation.framework */; };
 		E5A586551BC5992F00CD7526 /* PastelsiOSSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = E5A586541BC5992F00CD7526 /* PastelsiOSSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5DEE6151BDFC0D70046E8EA /* IDEWorkspace+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DEE6141BDFC0D70046E8EA /* IDEWorkspace+Pastels.m */; };
+		E5DEE6181BDFC1E10046E8EA /* IBSourceCodeClassProvider+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DEE6171BDFC1E10046E8EA /* IBSourceCodeClassProvider+Pastels.m */; };
 		E5E2569A1BACD28100382044 /* DVTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E256991BACD28100382044 /* DVTKit.framework */; };
 		E5E2569D1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2569C1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m */; };
 /* End PBXBuildFile section */
@@ -42,6 +45,8 @@
 		E5006EED1BAB7975008D04DF /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		E5006EF01BAB7975008D04DF /* DVTKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVTKit.h; sourceTree = "<group>"; };
 		E5006EF31BAB7985008D04DF /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		E510359E1BF260CA00911CC5 /* PastelsPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastelsPalette.h; sourceTree = "<group>"; };
+		E510359F1BF260CA00911CC5 /* PastelsPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastelsPalette.m; sourceTree = "<group>"; };
 		E518B2E21BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBStoryboardDocument+Pastels.h"; sourceTree = "<group>"; };
 		E518B2E31BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IBStoryboardDocument+Pastels.m"; sourceTree = "<group>"; };
 		E571E8561BCD83F000FFD361 /* IBCocoaTouchToolFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBCocoaTouchToolFoundation.h; sourceTree = "<group>"; };
@@ -70,6 +75,10 @@
 		E5A586521BC5992F00CD7526 /* PastelsiOSSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PastelsiOSSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A586541BC5992F00CD7526 /* PastelsiOSSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PastelsiOSSupport.h; sourceTree = "<group>"; };
 		E5A586561BC5992F00CD7526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5DEE6131BDFC0D70046E8EA /* IDEWorkspace+Pastels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDEWorkspace+Pastels.h"; sourceTree = "<group>"; };
+		E5DEE6141BDFC0D70046E8EA /* IDEWorkspace+Pastels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IDEWorkspace+Pastels.m"; sourceTree = "<group>"; };
+		E5DEE6161BDFC1E10046E8EA /* IBSourceCodeClassProvider+Pastels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBSourceCodeClassProvider+Pastels.h"; sourceTree = "<group>"; };
+		E5DEE6171BDFC1E10046E8EA /* IBSourceCodeClassProvider+Pastels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IBSourceCodeClassProvider+Pastels.m"; sourceTree = "<group>"; };
 		E5E256991BACD28100382044 /* DVTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTKit.framework; path = ../SharedFrameworks/DVTKit.framework; sourceTree = DEVELOPER_DIR; };
 		E5E2569B1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTColorPickerPopUpButton+Pastels.h"; sourceTree = "<group>"; };
 		E5E2569C1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTColorPickerPopUpButton+Pastels.m"; sourceTree = "<group>"; };
@@ -165,8 +174,14 @@
 			children = (
 				E5006EE81BAB795A008D04DF /* Pastels.h */,
 				E5006EE91BAB795A008D04DF /* Pastels.m */,
+				E510359E1BF260CA00911CC5 /* PastelsPalette.h */,
+				E510359F1BF260CA00911CC5 /* PastelsPalette.m */,
+				E5DEE6131BDFC0D70046E8EA /* IDEWorkspace+Pastels.h */,
+				E5DEE6141BDFC0D70046E8EA /* IDEWorkspace+Pastels.m */,
 				E5E2569B1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.h */,
 				E5E2569C1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m */,
+				E5DEE6161BDFC1E10046E8EA /* IBSourceCodeClassProvider+Pastels.h */,
+				E5DEE6171BDFC1E10046E8EA /* IBSourceCodeClassProvider+Pastels.m */,
 				E518B2E21BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.h */,
 				E518B2E31BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m */,
 				E571E8571BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.h */,
@@ -305,7 +320,7 @@
 		E5006EC81BAB78D6008D04DF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "orange in a day";
 				TargetAttributes = {
 					E5006ECF1BAB78D6008D04DF = {
@@ -375,8 +390,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E518B2E41BCD73B0005FA2D6 /* IBStoryboardDocument+Pastels.m in Sources */,
+				E5DEE6151BDFC0D70046E8EA /* IDEWorkspace+Pastels.m in Sources */,
 				E571E8591BCEBD2000FFD361 /* IBLiveViewsManager+Pastels.m in Sources */,
 				E5E2569D1BACD3A200382044 /* DVTColorPickerPopUpButton+Pastels.m in Sources */,
+				E51035A01BF260CA00911CC5 /* PastelsPalette.m in Sources */,
+				E5DEE6181BDFC1E10046E8EA /* IBSourceCodeClassProvider+Pastels.m in Sources */,
 				E59FFBA41BC9364100308DCB /* IBBinaryArchiver+Pastels.m in Sources */,
 				E5006EF21BAB7975008D04DF /* JRSwizzle.m in Sources */,
 				E5006EEA1BAB795A008D04DF /* Pastels.m in Sources */,
