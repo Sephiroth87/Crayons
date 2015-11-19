@@ -1,13 +1,13 @@
-Pastels
+Crayons
 ============================
 
 -- work in progress --
 
-Pastels is an Xcode plugin with various features that improve working with colors in your projects
+Crayons is an Xcode plugin with various features that improve working with colors in your projects
 
 ##Code palettes (iOS only)
 
-![CodePalettes](https://raw.githubusercontent.com/Sephiroth87/Pastels/master/Images/CodePalettes.png)
+![CodePalettes](https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/CodePalettes.png)
 
 You can share palettes of colors from your source files, and use them directly in Interface Builder, without having to manually recreate them in the Color Picker.
 And if you decide to change a color, you just need to change it's implementation.
