@@ -36,6 +36,7 @@
         NSMutableSet *currentColors = [[palette.colors allKeys] mutableCopy];
         for (IDEIndexCallableSymbol *method in [palette.classSymbol classMethods]) {
             NSString *methodName = method.name;
+            //TODO: add support for colors declared in a category / extension
             if (([[[method returnType] name] isEqualToString:@"UIColor"] || [[method resolution] hasSuffix:@"UIColor"]) && [method numArguments] == 0) {
                 if ([methodName hasSuffix:@"()"]) {
                     methodName = [methodName substringToIndex:methodName.length - 2];
