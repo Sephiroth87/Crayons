@@ -27,6 +27,7 @@
 @property(readonly, nonatomic) NSString *name;
 @property(readonly, nonatomic) NSString *resolution;
 @property(readonly, nonatomic) IDEIndexCollection *definitions;
+@property(readonly, nonatomic, getter=isInProject) BOOL inProject;
 
 - (id)file;
 

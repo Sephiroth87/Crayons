@@ -76,11 +76,13 @@
     for (IDEIndexCallableSymbol *paletteNameMethod in [self.index allSymbolsMatchingNames:@[@"paletteName", @"paletteName()"] kind:[DVTSourceCodeSymbolKind classMethodSymbolKind]]) {
         if (([[[paletteNameMethod returnType] name] isEqualToString:@"NSString"] || [paletteNameMethod.resolution hasSuffix:@"NSString"] || [paletteNameMethod.resolution hasSuffix:@"_SS"]) && [paletteNameMethod numArguments] == 0) {
             IDEIndexClassSymbol *classSymbol = [paletteNameMethod containerSymbol];
-            NSString *className = classSymbol.name;
-            if ([currentClasses containsObject:className]) {
-                [currentClasses removeObject:className];
-            } else {
-                [palettesForClassNames setObject:[CrayonsPalette paletteWithClassSymbol:classSymbol] forKey:className];
+            if (classSymbol.isInProject) {
+                NSString *className = classSymbol.name;
+                if ([currentClasses containsObject:className]) {
+                    [currentClasses removeObject:className];
+                } else {
+                    [palettesForClassNames setObject:[CrayonsPalette paletteWithClassSymbol:classSymbol] forKey:className];
+                }
             }
         }
     }
