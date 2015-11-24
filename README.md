@@ -1,9 +1,9 @@
 Crayons
 ============================
 
--- work in progress --
+![Logo](https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/logo.png)
 
-Crayons is an Xcode plugin with various features that improve working with colors in your projects
+Crayons is an Xcode7 plugin with various features that improve working with colors in your projects
 
 ##Code palettes (iOS only)
 
@@ -12,15 +12,17 @@ Crayons is an Xcode plugin with various features that improve working with color
 You can share palettes of colors from your source files, and use them directly in Interface Builder, without having to manually recreate them in the Color Picker.
 And if you decide to change a color, you just need to change it's implementation.
 Colors are generated dynamically, so you can use any method or calculation you need.
+Because of that, project has to built to get updated colors, so it might take a while before they are updated in IB after a code change.
 
 ####Usage
 Define a palette by adding the class method 
  
  ```
  	+ (NSString *)paletteName
+	class func paletteName() -> String 
 ```
 
-to any class.
+to any class (Class has to derive from NSObject at some level, so no pure Swift classes at the moment).
 To define a color, add a class method with any name that returns UIColor, for example
 
  ```
@@ -31,10 +33,13 @@ Only methods with no parameters are supported at the moment, and only UIColors i
 
 Look at the example project for more infos.
 
+Categories/extensions are currently not supported, only colors defined in the main implementation.
+
 ##Upcoming features
 * Colors validation (show IB warnings if using colors not defined in any palette)
 * OSX support?
 * More ways to define palettes/colors
+* Show status of colors generations / indexing
 * Any feature you think could be useful? Let me know
 
 ##Installation
@@ -42,6 +47,11 @@ Look at the example project for more infos.
 - (Alcatraz coming later)
 
 Either way, restart Xcode to make it load
+
+##Release notes
+###1.0
+- Initial Release
+- Code palettes for iOS
 
 ##License
 Copyright (c) 2015. [Fabio Ritrovato](https://twitter.com/Sephiroth87)
