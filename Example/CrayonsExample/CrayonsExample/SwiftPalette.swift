@@ -10,7 +10,7 @@ import UIKit
 
 class SwiftPalette: NSObject {
     
-    class func paletteName() -> NSString {
+    class func paletteName() -> String {
         return "Swift " + "Palette"
     }
     

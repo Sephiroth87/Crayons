@@ -74,7 +74,7 @@
     NSMutableArray *palettes = [[palettesForClassNames allValues] mutableCopy];
     NSMutableSet *currentClasses = [NSMutableSet setWithArray:[palettesForClassNames allKeys]];
     for (IDEIndexCallableSymbol *paletteNameMethod in [self.index allSymbolsMatchingNames:@[@"paletteName", @"paletteName()"] kind:[DVTSourceCodeSymbolKind classMethodSymbolKind]]) {
-        if (([[[paletteNameMethod returnType] name] isEqualToString:@"NSString"] || [paletteNameMethod.resolution hasSuffix:@"NSString"]) && [paletteNameMethod numArguments] == 0) {
+        if (([[[paletteNameMethod returnType] name] isEqualToString:@"NSString"] || [paletteNameMethod.resolution hasSuffix:@"NSString"] || [paletteNameMethod.resolution hasSuffix:@"_SS"]) && [paletteNameMethod numArguments] == 0) {
             IDEIndexClassSymbol *classSymbol = [paletteNameMethod containerSymbol];
             NSString *className = classSymbol.name;
             if ([currentClasses containsObject:className]) {
