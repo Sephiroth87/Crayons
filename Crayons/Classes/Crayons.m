@@ -36,6 +36,11 @@
 {
     if (self = [super init]) {
         self.bundle = plugin;
+        NSString *currentVersion = [plugin objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+        NSString *lastVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"CrayonsLastVersion"];
+        if (lastVersion == nil || [lastVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
+            [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"CrayonsLastVersion"];
+        }
     }
     return self;
 }
