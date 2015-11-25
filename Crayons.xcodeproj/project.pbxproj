@@ -378,7 +378,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcodebuild -workspace Crayons.xcodeproj/project.xcworkspace -scheme 'CrayonsiOSSupport' -configuration $CONFIGURATION -sdk iphonesimulator";
+			shellScript = "xcodebuild -workspace Crayons.xcodeproj/project.xcworkspace -scheme 'CrayonsiOSSupport' -configuration $CONFIGURATION -sdk iphonesimulator -derivedDataPath \"$BUILD_DIR\"\ncp -r \"$BUILD_DIR/Build/Products/$CONFIGURATION/CrayonsiOSSupport.framework\" \"$BUILD_DIR/$CONFIGURATION/CrayonsiOSSupport.framework\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
