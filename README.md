@@ -44,7 +44,7 @@ Categories/extensions are currently not supported, only colors defined in the ma
 
 ##Installation
 - Clone and build the project
-- (Alcatraz coming later)
+- Use [Alcatraz](https://github.com/supermarin/Alcatraz)
 
 Either way, restart Xcode to make it load
 
