@@ -40,7 +40,7 @@ Categories/extensions are currently not supported, only colors defined in the ma
 * OSX support?
 * More ways to define palettes/colors
 * Show status of colors generations / indexing
-* Any feature you think could be useful? Let me know
+* Any feature you think could be useful? Contact me ([@Sephiroth87](https://twitter.com/Sephiroth87))
 
 ##Installation
 - Clone and build the project
