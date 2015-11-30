@@ -1,6 +1,8 @@
 Crayons
 ============================
 
+[![Join the chat at https://gitter.im/Sephiroth87/Crayons](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Sephiroth87/Crayons?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Logo](https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/logo.png)
 
 Crayons is an Xcode7 plugin with various features that improve working with colors in your projects
