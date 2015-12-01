@@ -9,5 +9,6 @@
 @interface DVTSourceCodeSymbolKind : NSObject
 
 + (id)classMethodSymbolKind;
++ (id)classSymbolKind;
 
 @end

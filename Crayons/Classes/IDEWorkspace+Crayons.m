@@ -34,7 +34,8 @@
 {
     for (CrayonsPalette *palette in palettes) {
         NSMutableSet *currentColors = [[palette.colors allKeys] mutableCopy];
-        for (IDEIndexCallableSymbol *method in [palette.classSymbol classMethods]) {
+        id methods = palette.categorySymbol ? [palette.categorySymbol classMethods] : [palette.classSymbol classMethods];
+        for (IDEIndexCallableSymbol *method in methods) {
             NSString *methodName = method.name;
             //TODO: add support for colors declared in a category / extension
             if (([[[method returnType] name] isEqualToString:@"UIColor"] || [[method resolution] hasSuffix:@"UIColor"]) && [method numArguments] == 0) {
@@ -82,6 +83,17 @@
                     [currentClasses removeObject:className];
                 } else {
                     [palettesForClassNames setObject:[CrayonsPalette paletteWithClassSymbol:classSymbol] forKey:className];
+                }
+            }
+        }
+    }
+    for (IDEIndexClassSymbol *class in [self.index allSymbolsMatchingNames:@[@"UIColor"] kind:[DVTSourceCodeSymbolKind classSymbolKind]]) {
+        for (IDEIndexCategorySymbol *category in class.categories) {
+            if (category.isInProject && category.resolution.length) {
+                if ([currentClasses containsObject:category.resolution]) {
+                    [currentClasses removeObject:category.resolution];
+                } else {
+                    [palettesForClassNames setObject:[CrayonsPalette paletteWithCategorySymbol:category] forKey:category.resolution];
                 }
             }
         }

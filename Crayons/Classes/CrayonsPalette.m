@@ -12,6 +12,7 @@
 
 @property (nonatomic) NSMutableDictionary<NSString *, id> *colors;
 @property (nonatomic) IDEIndexClassSymbol *classSymbol;
+@property (nonatomic) IDEIndexCategorySymbol *categorySymbol;
 @property (nonatomic, readwrite) NSString *objcClassName;
 
 @end
@@ -42,11 +43,29 @@
     return palette;
 }
 
++ (instancetype)paletteWithCategorySymbol:(IDEIndexCategorySymbol *)categorySymbol
+{
+    CrayonsPalette *palette = [self paletteWithClassSymbol:categorySymbol.relatedClass];
+    palette.categorySymbol = categorySymbol;
+    return palette;
+}
+
 - (void)invalidate
 {
     self.valid = NO;
     self.name = nil;
     [self.colors removeAllObjects];
+}
+
+- (NSString *)fullName
+{
+    if (_name) {
+        if (_categorySymbol) {
+            return [NSString stringWithFormat:@"%@ (%@)", _name, _categorySymbol.name];
+        }
+        return _name;
+    }
+    return nil;
 }
 
 @end
