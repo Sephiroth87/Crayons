@@ -8,7 +8,7 @@
 ##Code palettes (iOS only)
 
 <p align="center">
-	<a href="https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/CodePalettes.png" alt="CodePalettes" />
+	<img src="https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/CodePalettes.png" alt="CodePalettes" />
 </p>
 
 You can share palettes of colors from your source files, and use them directly in Interface Builder, without having to manually recreate them in the Color Picker.
