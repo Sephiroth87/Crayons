@@ -16,14 +16,18 @@
 {
     NSMutableDictionary *paletteNames = [NSMutableDictionary new];
     for (NSString *className in classNames) {
-        Class class = objc_getClass([className cStringUsingEncoding:NSUTF8StringEncoding]);
-        if ([class respondsToSelector:NSSelectorFromString(@"paletteName")]) {
+        if ([className isEqualToString:@"UIColor"]) {
+            paletteNames[className] = @"UIColor";
+        } else {
+            Class class = objc_getClass([className cStringUsingEncoding:NSUTF8StringEncoding]);
+            if ([class respondsToSelector:NSSelectorFromString(@"paletteName")]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            NSString *paletteName = [class performSelector:NSSelectorFromString(@"paletteName")];
+                NSString *paletteName = [class performSelector:NSSelectorFromString(@"paletteName")];
 #pragma clang diagnostic pop
-            if ([paletteName isKindOfClass:[NSString class]]) {
-                paletteNames[className] = paletteName;
+                if ([paletteName isKindOfClass:[NSString class]]) {
+                    paletteNames[className] = paletteName;
+                }
             }
         }
     }

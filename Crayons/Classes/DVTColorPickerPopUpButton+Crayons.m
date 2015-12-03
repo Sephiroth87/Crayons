@@ -32,9 +32,9 @@
     NSArray *palettes = workspace.palettes;
     [workspace updateColors:palettes];
     NSMutableDictionary *colorsToUpdate = [NSMutableDictionary new];
-    NSMutableArray *namesToUpdate = [NSMutableArray new];
+    NSMutableSet *namesToUpdate = [NSMutableSet new];
     for (CrayonsPalette *palette in palettes) {
-        NSMutableArray *colors = [NSMutableArray new];
+        NSMutableArray *colors = colorsToUpdate[palette.objcClassName] ?: [NSMutableArray new];
         [palette.colors enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             if (obj == [NSNull null]) {
                 [colors addObject:key];
@@ -100,9 +100,9 @@
             return [obj1.name compare:obj2.name];
         }];
         for (CrayonsPalette *palette in sortedPalettes) {
-            if (palette.name) {
-                NSMenuItem *item = [colorsMenu addItemWithTitle:palette.name action:nil keyEquivalent:@""];
-                NSMenu *paletteColorsMenu = [[NSMenu alloc] initWithTitle:palette.name];
+            if (palette.name && palette.colors.count) {
+                NSMenuItem *item = [colorsMenu addItemWithTitle:[palette fullName] action:nil keyEquivalent:@""];
+                NSMenu *paletteColorsMenu = [[NSMenu alloc] initWithTitle:[palette fullName]];
                 for (NSString *colorName in [palette.colors.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]) {
                     id color = palette.colors[colorName];
                     if (color && color != [NSNull null]) {

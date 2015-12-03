@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E5006ED41BAB78D6008D04DF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED31BAB78D6008D04DF /* AppKit.framework */; };
 		E5006ED61BAB78D6008D04DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED51BAB78D6008D04DF /* Foundation.framework */; };
+		E54DF4161C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.m in Sources */ = {isa = PBXBuildFile; fileRef = E54DF4151C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.m */; };
 		E57ABA491BC7CE8400C28200 /* IBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA481BC7CE8400C28200 /* IBFoundation.framework */; };
 		E57ABA511BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA501BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework */; };
 		E57ABA5F1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA5E1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration */; };
@@ -48,6 +49,8 @@
 		E510359F1BF260CA00911CC5 /* CrayonsPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrayonsPalette.m; sourceTree = "<group>"; };
 		E518B2E21BCD73B0005FA2D6 /* IBStoryboardDocument+Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBStoryboardDocument+Crayons.h"; sourceTree = "<group>"; };
 		E518B2E31BCD73B0005FA2D6 /* IBStoryboardDocument+Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IBStoryboardDocument+Crayons.m"; sourceTree = "<group>"; };
+		E54DF4141C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTUserNotificationCenter+Crayons.h"; sourceTree = "<group>"; };
+		E54DF4151C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTUserNotificationCenter+Crayons.m"; sourceTree = "<group>"; };
 		E571E8561BCD83F000FFD361 /* IBCocoaTouchToolFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBCocoaTouchToolFoundation.h; sourceTree = "<group>"; };
 		E571E8571BCEBD2000FFD361 /* IBLiveViewsManager+Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBLiveViewsManager+Crayons.h"; sourceTree = "<group>"; };
 		E571E8581BCEBD2000FFD361 /* IBLiveViewsManager+Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IBLiveViewsManager+Crayons.m"; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 				E59FFBA31BC9364100308DCB /* IBBinaryArchiver+Crayons.m */,
 				E57ABA611BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Crayons.h */,
 				E57ABA621BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Crayons.m */,
+				E54DF4141C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.h */,
+				E54DF4151C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -378,7 +383,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcodebuild -workspace Crayons.xcodeproj/project.xcworkspace -scheme 'CrayonsiOSSupport' -configuration $CONFIGURATION -sdk iphonesimulator -derivedDataPath \"$BUILD_DIR\"\ncp -r \"$BUILD_DIR/Build/Products/$CONFIGURATION/CrayonsiOSSupport.framework\" \"$BUILD_DIR/$CONFIGURATION/CrayonsiOSSupport.framework\"";
+			shellScript = "xcodebuild -workspace Crayons.xcodeproj/project.xcworkspace -scheme 'CrayonsiOSSupport' -configuration $CONFIGURATION -sdk iphonesimulator -derivedDataPath \"$BUILD_DIR\"\nrm -rf \"$BUILD_DIR/$CONFIGURATION/CrayonsiOSSupport.framework\"\ncp -r \"$BUILD_DIR/Build/Products/$CONFIGURATION/CrayonsiOSSupport.framework\" \"$BUILD_DIR/$CONFIGURATION/CrayonsiOSSupport.framework\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -393,6 +398,7 @@
 				E5FCE6601BFE38CD00EBC8DB /* IBStoryboardDocument+Crayons.m in Sources */,
 				E5FCE6641BFE38CD00EBC8DB /* JRSwizzle.m in Sources */,
 				E5FCE65C1BFE38CD00EBC8DB /* CrayonsPalette.m in Sources */,
+				E54DF4161C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.m in Sources */,
 				E5FCE65B1BFE38CD00EBC8DB /* Crayons.m in Sources */,
 				E5FCE6611BFE38CD00EBC8DB /* IBLiveViewsManager+Crayons.m in Sources */,
 				E5FCE65D1BFE38CD00EBC8DB /* IDEWorkspace+Crayons.m in Sources */,

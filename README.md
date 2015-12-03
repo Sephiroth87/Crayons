@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/logo.png" />
+	<img src="https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/logo.png" alt="Logo" />
 	<a href="https://gitter.im/Sephiroth87/Crayons?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/Sephiroth87/Crayons" /></a>
 </p>
 
@@ -7,7 +7,9 @@
 
 ##Code palettes (iOS only)
 
-![CodePalettes](https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/CodePalettes.png)
+<p align="center">
+	<img src="https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/CodePalettes.png" alt="CodePalettes" />
+</p>
 
 You can share palettes of colors from your source files, and use them directly in Interface Builder, without having to manually recreate them in the Color Picker.
 And if you decide to change a color, you just need to change it's implementation.
@@ -31,9 +33,11 @@ To define a color, add a class method with any name that returns UIColor, for ex
 
 Only methods with no parameters are supported at the moment, and only UIColors in the RGB and White color space (so no `colorWithPatternImage:`)
 
-Look at the example project for more infos.
+You can then create a category/extension of you palette class, to create a separate palette with the same name plus the category name (look at `GooglePalette` and `GooglePalette+Accents` in the example project) 
 
-Categories/extensions are currently not supported, only colors defined in the main implementation.
+`UIColor` categories (like [Chameleon](https://github.com/ViccAlexander/Chameleon) will also generate palettes automatically.
+
+Look at the example project for more infos.
 
 ##Upcoming features
 * Colors validation (show IB warnings if using colors not defined in any palette)
@@ -49,6 +53,9 @@ Categories/extensions are currently not supported, only colors defined in the ma
 Either way, restart Xcode to make it load
 
 ##Release notes
+###1.1
+- You can now use categories/extensions for secondary palettes, and automatic UIColor palettes
+
 ###1.0
 - Initial Release
 - Code palettes for iOS

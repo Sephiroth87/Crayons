@@ -14,8 +14,9 @@
 		E518B2FE1BCD82D5005FA2D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E518B2FD1BCD82D5005FA2D6 /* Assets.xcassets */; };
 		E518B3011BCD82D5005FA2D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E518B2FF1BCD82D5005FA2D6 /* LaunchScreen.storyboard */; };
 		E518B30A1BCD82F8005FA2D6 /* MainPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = E518B3091BCD82F8005FA2D6 /* MainPalette.m */; };
-		E5B8461F1BD2622300A8FF54 /* SecondaryPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B8461E1BD2622300A8FF54 /* SecondaryPalette.m */; };
+		E59BAC811C105C4D0027FC8B /* GooglePalette+Accents.m in Sources */ = {isa = PBXBuildFile; fileRef = E59BAC801C105C4D0027FC8B /* GooglePalette+Accents.m */; };
 		E5E0C82A1BFCC90B00259F4B /* SwiftPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E0C8291BFCC90B00259F4B /* SwiftPalette.swift */; };
+		E5F176CD1C10581000EBF8FB /* GooglePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F176CC1C10581000EBF8FB /* GooglePalette.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,10 +32,12 @@
 		E518B3021BCD82D5005FA2D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E518B3081BCD82F8005FA2D6 /* MainPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPalette.h; sourceTree = "<group>"; };
 		E518B3091BCD82F8005FA2D6 /* MainPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPalette.m; sourceTree = "<group>"; };
-		E5B8461D1BD2622300A8FF54 /* SecondaryPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondaryPalette.h; sourceTree = "<group>"; };
-		E5B8461E1BD2622300A8FF54 /* SecondaryPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondaryPalette.m; sourceTree = "<group>"; };
+		E59BAC7F1C105C4D0027FC8B /* GooglePalette+Accents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GooglePalette+Accents.h"; sourceTree = "<group>"; };
+		E59BAC801C105C4D0027FC8B /* GooglePalette+Accents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GooglePalette+Accents.m"; sourceTree = "<group>"; };
 		E5E0C8281BFCC90B00259F4B /* CrayonsExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CrayonsExample-Bridging-Header.h"; sourceTree = "<group>"; };
 		E5E0C8291BFCC90B00259F4B /* SwiftPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPalette.swift; sourceTree = "<group>"; };
+		E5F176CB1C10581000EBF8FB /* GooglePalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePalette.h; sourceTree = "<group>"; };
+		E5F176CC1C10581000EBF8FB /* GooglePalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePalette.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +76,10 @@
 				E518B2F81BCD82D5005FA2D6 /* ViewController.m */,
 				E518B3081BCD82F8005FA2D6 /* MainPalette.h */,
 				E518B3091BCD82F8005FA2D6 /* MainPalette.m */,
-				E5B8461D1BD2622300A8FF54 /* SecondaryPalette.h */,
-				E5B8461E1BD2622300A8FF54 /* SecondaryPalette.m */,
+				E5F176CB1C10581000EBF8FB /* GooglePalette.h */,
+				E5F176CC1C10581000EBF8FB /* GooglePalette.m */,
+				E59BAC7F1C105C4D0027FC8B /* GooglePalette+Accents.h */,
+				E59BAC801C105C4D0027FC8B /* GooglePalette+Accents.m */,
 				E5E0C8291BFCC90B00259F4B /* SwiftPalette.swift */,
 				E518B2FA1BCD82D5005FA2D6 /* Main.storyboard */,
 				E518B2FD1BCD82D5005FA2D6 /* Assets.xcassets */,
@@ -167,9 +172,10 @@
 			files = (
 				E518B30A1BCD82F8005FA2D6 /* MainPalette.m in Sources */,
 				E518B2F91BCD82D5005FA2D6 /* ViewController.m in Sources */,
-				E5B8461F1BD2622300A8FF54 /* SecondaryPalette.m in Sources */,
 				E5E0C82A1BFCC90B00259F4B /* SwiftPalette.swift in Sources */,
 				E518B2F61BCD82D5005FA2D6 /* AppDelegate.m in Sources */,
+				E5F176CD1C10581000EBF8FB /* GooglePalette.m in Sources */,
+				E59BAC811C105C4D0027FC8B /* GooglePalette+Accents.m in Sources */,
 				E518B2F31BCD82D5005FA2D6 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -44,5 +44,13 @@
 @interface IDEIndexClassSymbol : IDEIndexSymbol
 
 - (id)classMethods;
+- (id)categories;
+
+@end
+
+@interface IDEIndexCategorySymbol : IDEIndexSymbol
+
+- (id)relatedClass;
+- (id)classMethods;
 
 @end

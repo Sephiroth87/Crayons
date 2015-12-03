@@ -2,7 +2,7 @@
 //  IBLiveViewsManager+Crayons.h
 //  Crayons
 //
-//  Created by Fabio on 14/10/2015.
+//  Created by Fabio Ritrovato on 14/10/2015.
 //  Copyright © 2015 orange in a day. All rights reserved.
 //
 
