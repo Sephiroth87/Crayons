@@ -31,9 +31,11 @@ To define a color, add a class method with any name that returns UIColor, for ex
 
 Only methods with no parameters are supported at the moment, and only UIColors in the RGB and White color space (so no `colorWithPatternImage:`)
 
-Look at the example project for more infos.
+You can then create a category/extension of you palette class, to create a separate palette with the same name plus the category name (look at `GooglePalette` and `GooglePalette+Accents` in the example project) 
 
-Categories/extensions are currently not supported, only colors defined in the main implementation.
+`UIColor` categories (like [Chameleon](https://github.com/ViccAlexander/Chameleon) will also generate palettes automatically.
+
+Look at the example project for more infos.
 
 ##Upcoming features
 * Colors validation (show IB warnings if using colors not defined in any palette)
@@ -49,6 +51,8 @@ Categories/extensions are currently not supported, only colors defined in the ma
 Either way, restart Xcode to make it load
 
 ##Release notes
+###1.1
+- You can now use categories/extensions for secondary palettes, and automatic UIColor palettes
 ###1.0
 - Initial Release
 - Code palettes for iOS
