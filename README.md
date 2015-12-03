@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/logo.png" />
+	<img src="https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/logo.png" alt="Logo" />
 	<a href="https://gitter.im/Sephiroth87/Crayons?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/Sephiroth87/Crayons" /></a>
 </p>
 
@@ -7,7 +7,9 @@
 
 ##Code palettes (iOS only)
 
-![CodePalettes](https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/CodePalettes.png)
+<p align="center">
+	<a href="https://raw.githubusercontent.com/Sephiroth87/Crayons/master/Images/CodePalettes.png" alt="CodePalettes" />
+</p>
 
 You can share palettes of colors from your source files, and use them directly in Interface Builder, without having to manually recreate them in the Color Picker.
 And if you decide to change a color, you just need to change it's implementation.
