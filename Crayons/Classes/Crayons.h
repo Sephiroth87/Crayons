@@ -8,6 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
+extern NSString * const CrayonsNewVersionNotification;
+
 @class Crayons;
 
 static Crayons *sharedPlugin;

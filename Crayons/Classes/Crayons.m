@@ -7,6 +7,9 @@
 //
 
 #import "Crayons.h"
+#import "DVTFoundation.h"
+
+NSString * const CrayonsNewVersionNotification = @"CrayonsNewVersionNotification";
 
 @interface Crayons()
 
@@ -38,9 +41,17 @@
         self.bundle = plugin;
         NSString *currentVersion = [plugin objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
         NSString *lastVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"CrayonsLastVersion"];
-        if (lastVersion == nil || [lastVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
+        if (lastVersion == nil || [lastVersion compare:currentVersion options:NSNumericSearch] == NSOrderedAscending) {
+            NSUserNotification *notification = [NSUserNotification new];
+            notification.title = [NSString stringWithFormat:@"Crayons updated to %@", currentVersion];
+            notification.informativeText = @"View release notes";
+            notification.userInfo = @{CrayonsNewVersionNotification: @(YES)};
+            notification.actionButtonTitle = @"View";
+            [notification setValue:@YES forKey:@"_showsButtons"];
+            [[DVTUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
             [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"CrayonsLastVersion"];
         }
+//        [[NSUserDefaults standardUserDefaults] setObject:@"0.0" forKey:@"CrayonsLastVersion"];
     }
     return self;
 }

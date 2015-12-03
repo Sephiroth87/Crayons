@@ -12,3 +12,10 @@
 + (id)classSymbolKind;
 
 @end
+
+@interface DVTUserNotificationCenter : NSObject <NSUserNotificationCenterDelegate>
+
++ (id)defaultUserNotificationCenter;
+- (void)deliverNotification:(id)arg1;
+
+@end
