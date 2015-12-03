@@ -55,6 +55,7 @@ Either way, restart Xcode to make it load
 ##Release notes
 ###1.1
 - You can now use categories/extensions for secondary palettes, and automatic UIColor palettes
+
 ###1.0
 - Initial Release
 - Code palettes for iOS
