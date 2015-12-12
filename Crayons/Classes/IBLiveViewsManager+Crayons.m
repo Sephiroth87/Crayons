@@ -11,12 +11,12 @@
 #import "IDEFoundation.h"
 #import "DVTFoundation.h"
 
-@implementation IBLiveViewsManager (Crayons)
+@implementation CIBLiveViewsManager
 
-+ (void)load
++ (void)initialize
 {
-    [self jr_swizzleMethod:@selector(_mainThread_filePathsContainingLiveClassesForProvider:) withMethod:@selector(p__mainThread_filePathsContainingLiveClassesForProvider:) error:NULL];
-    [self jr_swizzleMethod:@selector(_mainThread_rebuildBlueprint:forSourceCodeCaseProvider:) withMethod:@selector(p__mainThread_rebuildBlueprint:forSourceCodeCaseProvider:) error:NULL];
+    [self c_swizzleMethod:@selector(_mainThread_filePathsContainingLiveClassesForProvider:) ofClass:NSClassFromString(@"IBLiveViewsManager") withMethod:@selector(p__mainThread_filePathsContainingLiveClassesForProvider:)];
+    [self c_swizzleMethod:@selector(_mainThread_rebuildBlueprint:forSourceCodeCaseProvider:) ofClass:NSClassFromString(@"IBLiveViewsManager") withMethod:@selector(p__mainThread_rebuildBlueprint:forSourceCodeCaseProvider:)];
 }
 
 - (id)p__mainThread_filePathsContainingLiveClassesForProvider:(id)arg1

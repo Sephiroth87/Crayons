@@ -8,6 +8,6 @@
 
 #import "IDEInterfaceBuilderKit.h"
 
-@interface IBSourceCodeClassProvider (Crayons)
+@interface CIBSourceCodeClassProvider : NSObject <IBSourceCodeClassProvider>
 
 @end

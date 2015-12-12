@@ -9,13 +9,12 @@
 /* Begin PBXBuildFile section */
 		E5006ED41BAB78D6008D04DF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED31BAB78D6008D04DF /* AppKit.framework */; };
 		E5006ED61BAB78D6008D04DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5006ED51BAB78D6008D04DF /* Foundation.framework */; };
+		E527102B1C1C78A7001E0C6D /* NSObject+Crayons.m in Sources */ = {isa = PBXBuildFile; fileRef = E527102A1C1C78A7001E0C6D /* NSObject+Crayons.m */; };
 		E54DF4161C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.m in Sources */ = {isa = PBXBuildFile; fileRef = E54DF4151C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.m */; };
 		E57ABA491BC7CE8400C28200 /* IBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA481BC7CE8400C28200 /* IBFoundation.framework */; };
 		E57ABA511BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA501BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework */; };
-		E57ABA5F1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration in Frameworks */ = {isa = PBXBuildFile; fileRef = E57ABA5E1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration */; };
 		E59FFBA71BC93F6700308DCB /* IBCocoaTouchTool+Crayons.h in Headers */ = {isa = PBXBuildFile; fileRef = E59FFBA51BC93F6700308DCB /* IBCocoaTouchTool+Crayons.h */; };
 		E59FFBA81BC93F6700308DCB /* IBCocoaTouchTool+Crayons.m in Sources */ = {isa = PBXBuildFile; fileRef = E59FFBA61BC93F6700308DCB /* IBCocoaTouchTool+Crayons.m */; };
-		E5A586411BC3A8B900CD7526 /* IDEInterfaceBuilderKit in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A586401BC3A8B900CD7526 /* IDEInterfaceBuilderKit */; };
 		E5A586431BC3A91E00CD7526 /* IDEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A586421BC3A91E00CD7526 /* IDEKit.framework */; };
 		E5A586461BC3AB2900CD7526 /* IDEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A586451BC3AB2900CD7526 /* IDEFoundation.framework */; };
 		E5A5864B1BC570DA00CD7526 /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A5864A1BC570DA00CD7526 /* DVTFoundation.framework */; };
@@ -49,6 +48,8 @@
 		E510359F1BF260CA00911CC5 /* CrayonsPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrayonsPalette.m; sourceTree = "<group>"; };
 		E518B2E21BCD73B0005FA2D6 /* IBStoryboardDocument+Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBStoryboardDocument+Crayons.h"; sourceTree = "<group>"; };
 		E518B2E31BCD73B0005FA2D6 /* IBStoryboardDocument+Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IBStoryboardDocument+Crayons.m"; sourceTree = "<group>"; };
+		E52710291C1C78A7001E0C6D /* NSObject+Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Crayons.h"; sourceTree = "<group>"; };
+		E527102A1C1C78A7001E0C6D /* NSObject+Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Crayons.m"; sourceTree = "<group>"; };
 		E54DF4141C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTUserNotificationCenter+Crayons.h"; sourceTree = "<group>"; };
 		E54DF4151C1075A1005EE060 /* DVTUserNotificationCenter+Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTUserNotificationCenter+Crayons.m"; sourceTree = "<group>"; };
 		E571E8561BCD83F000FFD361 /* IBCocoaTouchToolFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBCocoaTouchToolFoundation.h; sourceTree = "<group>"; };
@@ -58,7 +59,6 @@
 		E57ABA4A1BC7CE9C00C28200 /* IBFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBFoundation.h; sourceTree = "<group>"; };
 		E57ABA501BC7F7E300C28200 /* IBCocoaTouchToolFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IBCocoaTouchToolFoundation.framework; path = Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/IBCocoaTouchToolFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		E57ABA571BC7F87200C28200 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		E57ABA5E1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = IDEInterfaceBuilderCocoaTouchIntegration; path = ../PlugIns/IDEInterfaceBuilderCocoaTouchIntegration.ideplugin/Contents/MacOS/IDEInterfaceBuilderCocoaTouchIntegration; sourceTree = DEVELOPER_DIR; };
 		E57ABA601BC8024E00C28200 /* IDEInterfaceBuilderCocoaTouchIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEInterfaceBuilderCocoaTouchIntegration.h; sourceTree = "<group>"; };
 		E57ABA611BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBAbstractPlatformToolExecutionContext+Crayons.h"; sourceTree = "<group>"; };
 		E57ABA621BC828CE00C28200 /* IBAbstractPlatformToolExecutionContext+Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IBAbstractPlatformToolExecutionContext+Crayons.m"; sourceTree = "<group>"; };
@@ -67,7 +67,6 @@
 		E59FFBA51BC93F6700308DCB /* IBCocoaTouchTool+Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBCocoaTouchTool+Crayons.h"; sourceTree = "<group>"; };
 		E59FFBA61BC93F6700308DCB /* IBCocoaTouchTool+Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IBCocoaTouchTool+Crayons.m"; sourceTree = "<group>"; };
 		E5A5863F1BC3A85F00CD7526 /* IDEInterfaceBuilderKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDEInterfaceBuilderKit.h; sourceTree = "<group>"; };
-		E5A586401BC3A8B900CD7526 /* IDEInterfaceBuilderKit */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = IDEInterfaceBuilderKit; path = ../PlugIns/IDEInterfaceBuilderKit.ideplugin/Contents/MacOS/IDEInterfaceBuilderKit; sourceTree = DEVELOPER_DIR; };
 		E5A586421BC3A91E00CD7526 /* IDEKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDEKit.framework; path = ../Frameworks/IDEKit.framework; sourceTree = DEVELOPER_DIR; };
 		E5A586441BC3A93300CD7526 /* IDEKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDEKit.h; sourceTree = "<group>"; };
 		E5A586451BC3AB2900CD7526 /* IDEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDEFoundation.framework; path = ../Frameworks/IDEFoundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -91,12 +90,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E57ABA5F1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration in Frameworks */,
 				E57ABA491BC7CE8400C28200 /* IBFoundation.framework in Frameworks */,
 				E5A5864B1BC570DA00CD7526 /* DVTFoundation.framework in Frameworks */,
 				E5A586461BC3AB2900CD7526 /* IDEFoundation.framework in Frameworks */,
 				E5A586431BC3A91E00CD7526 /* IDEKit.framework in Frameworks */,
-				E5A586411BC3A8B900CD7526 /* IDEInterfaceBuilderKit in Frameworks */,
 				E5006ED41BAB78D6008D04DF /* AppKit.framework in Frameworks */,
 				E5006ED61BAB78D6008D04DF /* Foundation.framework in Frameworks */,
 				E5E2569A1BACD28100382044 /* DVTKit.framework in Frameworks */,
@@ -139,8 +136,6 @@
 				E5A5864A1BC570DA00CD7526 /* DVTFoundation.framework */,
 				E5A586451BC3AB2900CD7526 /* IDEFoundation.framework */,
 				E5A586421BC3A91E00CD7526 /* IDEKit.framework */,
-				E5A586401BC3A8B900CD7526 /* IDEInterfaceBuilderKit */,
-				E57ABA5E1BC8023700C28200 /* IDEInterfaceBuilderCocoaTouchIntegration */,
 				E5006ED31BAB78D6008D04DF /* AppKit.framework */,
 				E5006ED51BAB78D6008D04DF /* Foundation.framework */,
 				E5E256991BACD28100382044 /* DVTKit.framework */,
@@ -177,6 +172,8 @@
 				E5006EE91BAB795A008D04DF /* Crayons.m */,
 				E510359E1BF260CA00911CC5 /* CrayonsPalette.h */,
 				E510359F1BF260CA00911CC5 /* CrayonsPalette.m */,
+				E52710291C1C78A7001E0C6D /* NSObject+Crayons.h */,
+				E527102A1C1C78A7001E0C6D /* NSObject+Crayons.m */,
 				E5DEE6131BDFC0D70046E8EA /* IDEWorkspace+Crayons.h */,
 				E5DEE6141BDFC0D70046E8EA /* IDEWorkspace+Crayons.m */,
 				E5E2569B1BACD3A200382044 /* DVTColorPickerPopUpButton+Crayons.h */,
@@ -403,6 +400,7 @@
 				E5FCE6611BFE38CD00EBC8DB /* IBLiveViewsManager+Crayons.m in Sources */,
 				E5FCE65D1BFE38CD00EBC8DB /* IDEWorkspace+Crayons.m in Sources */,
 				E5FCE65F1BFE38CD00EBC8DB /* IBSourceCodeClassProvider+Crayons.m in Sources */,
+				E527102B1C1C78A7001E0C6D /* NSObject+Crayons.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

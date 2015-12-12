@@ -9,6 +9,11 @@
 #import "Crayons.h"
 #import "DVTFoundation.h"
 
+#import "IBSourceCodeClassProvider+Crayons.h"
+#import "IBStoryboardDocument+Crayons.h"
+#import "IBLiveViewsManager+Crayons.h"
+#import "IBAbstractPlatformToolExecutionContext+Crayons.h"
+
 NSString * const CrayonsNewVersionNotification = @"CrayonsNewVersionNotification";
 
 @interface Crayons()
@@ -26,6 +31,16 @@ NSString * const CrayonsNewVersionNotification = @"CrayonsNewVersionNotification
     if ([currentApplicationName isEqual:@"Xcode"]) {
         dispatch_once(&onceToken, ^{
             sharedPlugin = [[Crayons alloc] initWithBundle:plugin];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Classes from other Xcode plugins can't be swizzled until the plugin has been loaded,
+                // so we use +initialize instead of +load and trigger it here
+                // Also, we can't link to the plugin binary as that has some weird side effects,
+                // so these classes are swizzled in a different way
+                [CIBSourceCodeClassProvider class];
+                [CIBStoryboardDocument class];
+                [CIBLiveViewsManager class];
+                [CIBAbstractPlatformToolExecutionContext class];
+            });
         });
     }
 }
@@ -51,7 +66,6 @@ NSString * const CrayonsNewVersionNotification = @"CrayonsNewVersionNotification
             [[DVTUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
             [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"CrayonsLastVersion"];
         }
-//        [[NSUserDefaults standardUserDefaults] setObject:@"0.0" forKey:@"CrayonsLastVersion"];
     }
     return self;
 }

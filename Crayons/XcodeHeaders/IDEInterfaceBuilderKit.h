@@ -8,7 +8,9 @@
 
 #import "IDEKit.h"
 
-@interface IBDocument : NSDocument
+@protocol IBDocument <NSObject>
+
+@optional
 
 - (id)effectiveWorkspaceDocument;
 - (id)liveViewsManager;
@@ -16,7 +18,13 @@
 
 @end
 
-@interface IBStoryboardDocument : IBDocument
+@interface IBDocument : NSDocument <IBDocument>
+@end
+
+@protocol IBStoryboardDocument <IBDocument>
+@end
+
+@interface IBStoryboardDocument : IBDocument <IBStoryboardDocument>
 @end
 
 @interface IBInspectorViewController : IDEInspectorViewController
@@ -25,7 +33,9 @@
 
 @end
 
-@interface IBLiveViewsManager : NSObject
+@protocol IBLiveViewsManager <NSObject>
+
+@optional
 
 @property(nonatomic, getter=isEnabled) BOOL enabled;
 
@@ -34,6 +44,9 @@
 - (void)invalidateBundleForClassNamed:(id)arg1 inDocument:(id)arg2 forceRebuild:(BOOL)arg3;
 - (void)_mainThread_rebuildBlueprint:(id)arg1 forSourceCodeCaseProvider:(id)arg2;
 
+@end
+
+@interface IBLiveViewsManager : NSObject <IBLiveViewsManager>
 @end
 
 @interface IBAbstractPlatformToolProxy : NSObject
@@ -48,20 +61,35 @@
 
 @end
 
-@interface IBAbstractPlatformToolExecutionContext : NSObject
+@protocol IBAbstractPlatformToolExecutionContext <NSObject>
+
+@optional
 
 - (BOOL)populateEnvironment:(id)arg1 launchContext:(id)arg2 error:(id *)arg3;
 
 @end
 
-@interface IBAbstractWorkspaceDocumentClassProvider : NSObject
+@interface IBAbstractPlatformToolExecutionContext : NSObject <IBAbstractPlatformToolExecutionContext>
+@end
+
+@protocol IBAbstractWorkspaceDocumentClassProvider <NSObject>
+
+@optional
 
 @property(readonly) IDEWorkspace *workspace;
 
 @end
 
-@interface IBSourceCodeClassProvider : IBAbstractWorkspaceDocumentClassProvider
+@interface IBAbstractWorkspaceDocumentClassProvider : NSObject <IBAbstractWorkspaceDocumentClassProvider>
+@end
+
+@protocol IBSourceCodeClassProvider <IBAbstractWorkspaceDocumentClassProvider>
+
+@optional
 
 - (void)_notifyObserversOfAffectedFilePaths:(id)arg1 andAffectedClassNames:(id)arg2;
 
+@end
+
+@interface IBSourceCodeClassProvider : IBAbstractWorkspaceDocumentClassProvider <IBSourceCodeClassProvider>
 @end

@@ -9,11 +9,12 @@
 #import "IBStoryboardDocument+Crayons.h"
 #import "IDEWorkspace+Crayons.h"
 
-@implementation IBStoryboardDocument (Crayons)
+@implementation CIBStoryboardDocument
 
-+ (void)load
++ (void)initialize
 {
-    [self jr_swizzleMethod:@selector(classDescriber:didModifyClasses:) withMethod:@selector(p_classDescriber:didModifyClasses:) error:NULL];
+    [self c_swizzleMethod:@selector(classDescriber:didModifyClasses:) ofClass:NSClassFromString(@"IBStoryboardDocument") withMethod:@selector(p_classDescriber:didModifyClasses:)];
+    [self c_addMethod:@selector(enableLiveViewsManagerIfNeeded) toClass:NSClassFromString(@"IBStoryboardDocument")];
 }
 
 - (void)enableLiveViewsManagerIfNeeded

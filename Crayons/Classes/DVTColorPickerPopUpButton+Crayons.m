@@ -51,7 +51,7 @@
         IBStoryboardDocument *document = (IBStoryboardDocument *)inspector.inspectedDocument;
         IBCocoaTouchTargetRuntime *runtime = [document cocoaTouchTargetRuntime];
         IBLiveViewsManager *manager = [document liveViewsManager];
-        IBCocoaTouchPlatformToolDescription *platformDescription = [[IBCocoaTouchPlatformToolDescription alloc] initWithTargetRuntime:runtime role:1 scaleFactor:self.window.backingScaleFactor];
+        id platformDescription = [[NSClassFromString(@"IBCocoaTouchPlatformToolDescription") alloc] initWithTargetRuntime:runtime role:1 scaleFactor:self.window.backingScaleFactor];
         IBCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededWithDescription:platformDescription returningFailedLoadResult:nil];
         if (namesToUpdate.count) {
             DLog(@"🖍 updating missing palette names: %@", namesToUpdate);
@@ -127,7 +127,7 @@
     while (view != nil) {
         if ([view respondsToSelector:@selector(viewController)]) {
             NSViewController *vc = [view valueForKey:@"viewController"];
-            if ([vc isKindOfClass:[IBInspectorViewController class]]) {
+            if ([vc isKindOfClass:NSClassFromString(@"IBInspectorViewController")]) {
                 inspector = (IBInspectorViewController *)vc;
                 break;
             }

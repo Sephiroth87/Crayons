@@ -8,5 +8,5 @@
 
 #import "IDEInterfaceBuilderKit.h"
 
-@interface IBAbstractPlatformToolExecutionContext (Crayons)
+@interface CIBAbstractPlatformToolExecutionContext: NSObject <IBAbstractPlatformToolExecutionContext>
 @end

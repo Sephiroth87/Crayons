@@ -8,6 +8,6 @@
 
 #import "IDEInterfaceBuilderKit.h"
 
-@interface IBStoryboardDocument (Crayons)
+@interface CIBStoryboardDocument : NSDocument <IBStoryboardDocument>
 
 @end
