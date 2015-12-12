@@ -8,6 +8,6 @@
 
 #import "IDEInterfaceBuilderKit.h"
 
-@interface IBLiveViewsManager (Crayons)
+@interface CIBLiveViewsManager : NSObject <IBLiveViewsManager>
 
 @end

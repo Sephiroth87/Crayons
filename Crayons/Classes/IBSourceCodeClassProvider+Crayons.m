@@ -9,11 +9,11 @@
 #import "IBSourceCodeClassProvider+Crayons.h"
 #import "IDEWorkspace+Crayons.h"
 
-@implementation IBSourceCodeClassProvider (Crayons)
+@implementation CIBSourceCodeClassProvider
 
-+ (void)load
++ (void)initialize
 {
-    [self jr_swizzleMethod:@selector(_notifyObserversOfAffectedFilePaths:andAffectedClassNames:) withMethod:@selector(p__notifyObserversOfAffectedFilePaths:andAffectedClassNames:) error:NULL];
+    [self c_swizzleMethod:@selector(_notifyObserversOfAffectedFilePaths:andAffectedClassNames:) ofClass:NSClassFromString(@"IBSourceCodeClassProvider") withMethod:@selector(p__notifyObserversOfAffectedFilePaths:andAffectedClassNames:)];
 }
 
 - (void)p__notifyObserversOfAffectedFilePaths:(id)arg1 andAffectedClassNames:(id)arg2

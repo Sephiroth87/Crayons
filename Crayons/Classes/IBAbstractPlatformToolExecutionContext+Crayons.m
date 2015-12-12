@@ -9,11 +9,11 @@
 #import "IBAbstractPlatformToolExecutionContext+Crayons.h"
 #import "Crayons.h"
 
-@implementation IBAbstractPlatformToolExecutionContext (Crayons)
+@implementation CIBAbstractPlatformToolExecutionContext
 
-+ (void)load
++ (void)initialize
 {
-    [self jr_swizzleMethod:@selector(populateEnvironment:launchContext:error:) withMethod:@selector(p_populateEnvironment:launchContext:error:) error:NULL];
+    [self c_swizzleMethod:@selector(populateEnvironment:launchContext:error:) ofClass:NSClassFromString(@"IBAbstractPlatformToolExecutionContext") withMethod:@selector(p_populateEnvironment:launchContext:error:)];
 }
 
 - (BOOL)p_populateEnvironment:(id)arg1 launchContext:(id)arg2 error:(id *)arg3
