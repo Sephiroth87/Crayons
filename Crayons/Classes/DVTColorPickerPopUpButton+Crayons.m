@@ -60,6 +60,7 @@
                 [channel sendMessage:arg1 returnValue:arg3 context:@{CrayonsIBMessageSendChannelCustomParametersKey: namesToUpdate} error:nil arguments:0];
                 return YES;
             }];
+            DLog(@"🖍 got names: %@", updatedPaletteNames);
             for (CrayonsPalette *palette in palettes) {
                 NSString *updatedPaletteNameForClass = updatedPaletteNames[palette.objcClassName];
                 if (updatedPaletteNameForClass) {
@@ -74,6 +75,7 @@
                 [channel sendMessage:arg1 returnValue:arg3 context:@{CrayonsIBMessageSendChannelCustomParametersKey: colorsToUpdate} error:nil arguments:0];
                 return YES;
             }];
+            DLog(@"🖍 got colors: %@", updatedColors);
             for (CrayonsPalette *palette in palettes) {
                 NSDictionary *updatedColorsForClass = updatedColors[palette.objcClassName];
                 if (updatedColorsForClass.count) {
@@ -125,12 +127,15 @@
     NSView *view = self.superview;
     IBInspectorViewController *inspector = nil;
     while (view != nil) {
-        if ([view respondsToSelector:@selector(viewController)]) {
-            NSViewController *vc = [view valueForKey:@"viewController"];
-            if ([vc isKindOfClass:NSClassFromString(@"IBInspectorViewController")]) {
-                inspector = (IBInspectorViewController *)vc;
-                break;
-            }
+        NSViewController *vc = nil;
+        if ([view respondsToSelector:NSSelectorFromString(@"dvt_viewController")]) {
+            vc = [view valueForKey:@"dvt_viewController"];
+        } else if ([view respondsToSelector:NSSelectorFromString(@"viewController")]) {
+            vc = [view valueForKey:@"viewController"];
+        }
+        if ([vc isKindOfClass:NSClassFromString(@"IBInspectorViewController")]) {
+            inspector = (IBInspectorViewController *)vc;
+            break;
         }
         view = view.superview;
     }
