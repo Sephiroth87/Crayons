@@ -39,9 +39,11 @@
 
 @property(nonatomic, getter=isEnabled) BOOL enabled;
 
++ (id)managerForWorkspace:(id)arg1;
 - (id)cachedRequestProxyAttachingIfNeededWithDescription:(id)arg1 returningFailedLoadResult:(id *)arg2;
 - (id)_mainThread_filePathsContainingLiveClassesForProvider:(id)arg1;
 - (void)invalidateBundleForClassNamed:(id)arg1 inDocument:(id)arg2 forceRebuild:(BOOL)arg3;
+- (void)invalidateBundleForDependenciesOfSourceFilesAtPaths:(id)arg1 forceRebuild:(BOOL)arg2;
 - (void)_mainThread_rebuildBlueprint:(id)arg1 forSourceCodeCaseProvider:(id)arg2;
 
 @end
