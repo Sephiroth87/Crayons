@@ -14,6 +14,7 @@
 @interface IDEWorkspace ()
 
 @property (nonatomic, readonly) NSMutableDictionary<NSString *, CrayonsPalette *> *palettesForClassNames;
+@property (nonatomic, readwrite) NSSet<DVTFilePath *> *palettesFilePaths;
 @property (nonatomic) id indexNotificationObserver;
 
 @end
@@ -92,6 +93,7 @@
                 [palettes removeObject:palettesForClassNames[oldClass]];
                 [palettesForClassNames removeObjectForKey:oldClass];
             }
+            self.palettesFilePaths = filePaths;
             if (palettesForClassNames.count) {
                 IBLiveViewsManager *liveViewsManager = [NSClassFromString(@"IBLiveViewsManager") managerForWorkspace:self];
                 if (liveViewsManager && !liveViewsManager.isEnabled) {
@@ -161,6 +163,16 @@
 - (void)setIndexNotificationObserver:(id)indexNotificationObserver
 {
     objc_setAssociatedObject(self, @selector(indexNotificationObserver), indexNotificationObserver, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSSet<DVTFilePath *> *)palettesFilePaths
+{
+    return objc_getAssociatedObject(self, @selector(palettesFilePaths));
+}
+
+- (void)setPalettesFilePaths:(NSSet<DVTFilePath *> *)palettesFilePaths
+{
+    objc_setAssociatedObject(self, @selector(palettesFilePaths), palettesFilePaths, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSArray<CrayonsPalette *> *)palettes

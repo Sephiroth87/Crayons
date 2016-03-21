@@ -12,6 +12,7 @@
 @interface IDEWorkspace (Crayons)
 
 @property (nonatomic, readonly) NSArray<CrayonsPalette *> *palettes;
+@property (nonatomic, readonly) NSSet<DVTFilePath *> *palettesFilePaths;
 
 - (void)invalidatePalettesForClassNames:(NSSet *)names;
 - (void)updateColors:(NSArray<CrayonsPalette *> *)palettes;
