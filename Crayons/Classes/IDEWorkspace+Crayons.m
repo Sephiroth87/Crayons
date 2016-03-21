@@ -125,6 +125,11 @@
             } else {
                 palette.colors[methodName] = [NSNull null];
             }
+        } else if ([[method resolution] hasSuffix:@"ERR"]) {
+            // Sometimes the index gets corrupted, so we recreate it from scratch
+            //TODO: is there a better way to detect this? It looks like the index stops updating on corruption, so what happens
+            // if it's other methods that are corrupted instead of the ones we use?
+            [self.index _reopenDatabaseWithRemoval:YES];
         }
     }
     for (NSString *oldColor in currentColors) {

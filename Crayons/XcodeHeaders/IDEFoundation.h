@@ -11,6 +11,7 @@
 @interface IDEIndex : NSObject
 
 - (id)allSymbolsMatchingNames:(id)arg1 kind:(id)arg2;
+- (BOOL)_reopenDatabaseWithRemoval:(BOOL)arg1;
 
 @end
 
