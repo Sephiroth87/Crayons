@@ -30,7 +30,6 @@
     IBInspectorViewController *inspector = [self inspectorViewController];
     IDEWorkspace *workspace = inspector.workspace;
     NSArray *palettes = workspace.palettes;
-    [workspace updateColors:palettes];
     NSMutableDictionary *colorsToUpdate = [NSMutableDictionary new];
     NSMutableSet *namesToUpdate = [NSMutableSet new];
     for (CrayonsPalette *palette in palettes) {

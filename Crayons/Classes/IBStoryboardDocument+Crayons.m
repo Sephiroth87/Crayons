@@ -24,10 +24,9 @@
     IBLiveViewsManager *liveViewsManager = [self liveViewsManager];
     if (liveViewsManager && liveViewsManager.isEnabled) {
         for (CrayonsPalette *palette in palettes) {
-            NSString *className = palette.classSymbol.name;
-            if ([arg2 containsObject:className] && !palette.isValid) {
-                DLog(@"🖍 invalidate bundle class %@", className);
-                [liveViewsManager invalidateBundleForClassNamed:className inDocument:self forceRebuild:NO];
+            if ([arg2 containsObject:palette.className] && !palette.isValid) {
+                DLog(@"🖍 invalidate bundle class %@", palette.className);
+                [liveViewsManager invalidateBundleForClassNamed:palette.className inDocument:self forceRebuild:NO];
             }
         }
     }

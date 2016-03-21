@@ -15,6 +15,5 @@
 @property (nonatomic, readonly) NSSet<DVTFilePath *> *palettesFilePaths;
 
 - (void)invalidatePalettesForClassNames:(NSSet *)names;
-- (void)updateColors:(NSArray<CrayonsPalette *> *)palettes;
 
 @end
