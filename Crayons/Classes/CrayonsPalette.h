@@ -13,13 +13,11 @@
 
 @property (nonatomic, readonly) NSMutableDictionary<NSString *, id> *colors;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, readonly, copy) NSString *className;
 @property (nonatomic, readonly, copy) NSString *objcClassName;
-@property (nonatomic, readonly) IDEIndexClassSymbol *classSymbol;
-@property (nonatomic, readonly) IDEIndexCategorySymbol *categorySymbol;
 @property (assign, getter=isValid) BOOL valid;
 
-+ (instancetype)paletteWithClassSymbol:(IDEIndexClassSymbol *)classSymbol;
-+ (instancetype)paletteWithCategorySymbol:(IDEIndexCategorySymbol *)categorySymbol;
++ (instancetype)paletteWithSymbol:(IDEIndexSymbol *)symbol;
 - (void)invalidate;
 - (NSString *)fullName;
 

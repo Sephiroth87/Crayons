@@ -11,18 +11,25 @@
 @interface CrayonsPalette()
 
 @property (nonatomic) NSMutableDictionary<NSString *, id> *colors;
-@property (nonatomic) IDEIndexClassSymbol *classSymbol;
-@property (nonatomic) IDEIndexCategorySymbol *categorySymbol;
-@property (nonatomic, readwrite) NSString *objcClassName;
+@property (nonatomic, readwrite, copy) NSString *className;
+@property (nonatomic, readwrite, copy) NSString *categoryName;
+@property (nonatomic, readwrite, copy) NSString *objcClassName;
 
 @end
 
 @implementation CrayonsPalette
 
-+ (instancetype)paletteWithClassSymbol:(IDEIndexClassSymbol *)classSymbol
++ (instancetype)paletteWithSymbol:(IDEIndexSymbol *)symbol
 {
     CrayonsPalette *palette = [self new];
-    palette.classSymbol = classSymbol;
+    IDEIndexClassSymbol *classSymbol;
+    if ([symbol isKindOfClass:[IDEIndexCategorySymbol class]]) {
+        classSymbol = [(IDEIndexCategorySymbol *)symbol relatedClass];
+        palette.categoryName = symbol.name;
+    } else {
+        classSymbol = (IDEIndexClassSymbol *)symbol;
+    }
+    palette.className = classSymbol.name;
     palette.colors = [NSMutableDictionary new];
     palette.valid = NO;
     if ([classSymbol.resolution hasPrefix:@"s:"]) {
@@ -43,25 +50,20 @@
     return palette;
 }
 
-+ (instancetype)paletteWithCategorySymbol:(IDEIndexCategorySymbol *)categorySymbol
-{
-    CrayonsPalette *palette = [self paletteWithClassSymbol:categorySymbol.relatedClass];
-    palette.categorySymbol = categorySymbol;
-    return palette;
-}
-
 - (void)invalidate
 {
     self.valid = NO;
     self.name = nil;
-    [self.colors removeAllObjects];
+    for (NSString *key in self.colors.allKeys) {
+        self.colors[key] = [NSNull null];
+    }
 }
 
 - (NSString *)fullName
 {
     if (_name) {
-        if (_categorySymbol) {
-            return [NSString stringWithFormat:@"%@ (%@)", _name, _categorySymbol.name];
+        if (_categoryName) {
+            return [NSString stringWithFormat:@"%@ (%@)", _name, _categoryName];
         }
         return _name;
     }

@@ -12,6 +12,11 @@
 
 @implementation IBCocoaTouchTool (Crayons)
 
++ (void)load
+{
+    DLog(@"🖍 📱 framework loaded");
+}
+
 - (NSDictionary *)paletteNamesForClassNames:(NSArray *)classNames
 {
     NSMutableDictionary *paletteNames = [NSMutableDictionary new];

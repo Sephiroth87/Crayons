@@ -8,110 +8,172 @@
 
 #import "IDEWorkspace+Crayons.h"
 #import "DVTFoundation.h"
+#import "IDEInterfaceBuilderKit.h"
 #import <objc/runtime.h>
 
 @interface IDEWorkspace ()
 
-@property (nonatomic, readonly) NSMutableDictionary<NSString *, CrayonsPalette *> *palettesForClassNames;
+@property (nonatomic, readonly) NSMutableDictionary<NSString *, CrayonsPalette *> *palettesForResolutions;
+@property (nonatomic, readwrite) NSSet<DVTFilePath *> *palettesFilePaths;
+@property (nonatomic) id indexNotificationObserver;
 
 @end
 
 @implementation IDEWorkspace (Crayons)
 
-- (void)invalidatePalettesForClassNames:(NSArray *)names
++ (void)load
 {
-    NSMutableDictionary *palettesForClassNames = self.palettesForClassNames;
-    for (NSString *name in names) {
-        if ([palettesForClassNames objectForKey:name]) {
-        DLog(@"🖍 invalidated palette for class %@", name);
-            CrayonsPalette *palette = palettesForClassNames[name];
-            [palette invalidate];
-        }
+    [self jr_swizzleMethod:@selector(didCreateIndex:) withMethod:@selector(c_didCreateIndex:) error:NULL];
+}
+
+- (void)dealloc
+{
+    if (self.indexNotificationObserver) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self.indexNotificationObserver];
     }
 }
 
-- (void)updateColors:(NSArray<CrayonsPalette *> *)palettes
+- (void)c_didCreateIndex:(id)index
 {
-    for (CrayonsPalette *palette in palettes) {
-        NSMutableSet *currentColors = [[palette.colors allKeys] mutableCopy];
-        id methods = palette.categorySymbol ? [palette.categorySymbol classMethods] : [palette.classSymbol classMethods];
-        for (IDEIndexCallableSymbol *method in methods) {
-            NSString *methodName = method.name;
-            if (([[[method returnType] name] isEqualToString:@"UIColor"] || [[method resolution] hasSuffix:@"UIColor"]) && [method numArguments] == 0) {
-                if ([methodName hasSuffix:@"()"]) {
-                    methodName = [methodName substringToIndex:methodName.length - 2];
-                }
-                if ([currentColors containsObject:methodName]) {
-                    [currentColors removeObject:methodName];
-                } else {
-                    palette.colors[methodName] = [NSNull null];
-                }
-            }
-        }
-        for (NSString *oldColor in currentColors) {
-            DLog(@"🖍 removed old color %@ in palette class %@", oldColor, palette.classSymbol.name);
-            [palette.colors removeObjectForKey:oldColor];
-        }
+    [self c_didCreateIndex:index];
+    if (self.indexNotificationObserver) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self.indexNotificationObserver];
     }
+    self.indexNotificationObserver = [[NSNotificationCenter defaultCenter] addObserverForName:@"IDEIndexDidIndexWorkspaceNotification" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull notification) {
+        if (notification.object == self.index) {
+            [self updatePalettes];
+        }
+    }];
+    [self updatePalettes];
 }
 
-#pragma mark - Properties
-
-- (NSMutableDictionary *)palettesForClassNames
-{
-    NSMutableDictionary *palettesForClassNames = objc_getAssociatedObject(self, @selector(palettesForClassNames));
-    if (!palettesForClassNames) {
-        palettesForClassNames = [NSMutableDictionary new];
-        objc_setAssociatedObject(self, @selector(palettesForClassNames), palettesForClassNames, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return palettesForClassNames;
-}
-
-- (NSArray<CrayonsPalette *> *)palettes
+- (void)updatePalettes
 {
     DLog(@"🖍 updating palette classes");
-    NSMutableDictionary *palettesForClassNames = self.palettesForClassNames;
-    NSMutableArray *palettes = [[palettesForClassNames allValues] mutableCopy];
-    NSMutableSet *currentClasses = [NSMutableSet setWithArray:[palettesForClassNames allKeys]];
+    NSMutableDictionary *palettesForResolutions = self.palettesForResolutions;
+    NSMutableArray *palettes = [[palettesForResolutions allValues] mutableCopy];
+    NSMutableSet *currentResolutions = [NSMutableSet setWithArray:[palettesForResolutions allKeys]];
+    NSMutableSet *filePaths = [NSMutableSet set];
+    
+    void (^handleSymbol)(IDEIndexSymbol *) = ^void (IDEIndexSymbol *symbol) {
+        if (symbol.isInProject && symbol.resolution.length) {
+            CrayonsPalette *palette = palettesForResolutions[symbol.resolution] ?: [CrayonsPalette paletteWithSymbol:symbol];
+            [currentResolutions removeObject:symbol.resolution];
+            if ([symbol isKindOfClass:[IDEIndexClassSymbol class]]) {
+                [self updateColors:palette methods:((IDEIndexClassSymbol *)symbol).classMethods];
+            } else if ([symbol isKindOfClass:[IDEIndexCategorySymbol class]]) {
+                [self updateColors:palette methods:((IDEIndexCategorySymbol *)symbol).classMethods];
+            }
+            palettesForResolutions[symbol.resolution] = palette;
+            for (IDEIndexSymbolOccurrence *occurrence in [symbol occurrences]) {
+                [filePaths addObject:occurrence.file];
+            }
+        }
+    };
+    
     for (IDEIndexCallableSymbol *paletteNameMethod in [self.index allSymbolsMatchingNames:@[@"paletteName", @"paletteName()"] kind:[DVTSourceCodeSymbolKind classMethodSymbolKind]]) {
         if (([[[paletteNameMethod returnType] name] isEqualToString:@"NSString"] || [paletteNameMethod.resolution hasSuffix:@"NSString"] || [paletteNameMethod.resolution hasSuffix:@"_SS"]) && [paletteNameMethod numArguments] == 0) {
             IDEIndexClassSymbol *classSymbol = [paletteNameMethod containerSymbol];
-            if (classSymbol.isInProject) {
-                NSString *className = classSymbol.name;
-                if ([currentClasses containsObject:className]) {
-                    [currentClasses removeObject:className];
-                } else {
-                    [palettesForClassNames setObject:[CrayonsPalette paletteWithClassSymbol:classSymbol] forKey:className];
-                }
-                for (IDEIndexCategorySymbol *category in classSymbol.categories) {
-                    if (category.isInProject && category.resolution.length) {
-                        if ([currentClasses containsObject:category.resolution]) {
-                            [currentClasses removeObject:category.resolution];
-                        } else {
-                            [palettesForClassNames setObject:[CrayonsPalette paletteWithCategorySymbol:category] forKey:category.resolution];
-                        }
-                    }
-                }
+            handleSymbol(classSymbol);
+            for (IDEIndexCategorySymbol *category in classSymbol.categories) {
+                handleSymbol(category);
             }
         }
     }
     for (IDEIndexClassSymbol *class in [self.index allSymbolsMatchingNames:@[@"UIColor"] kind:[DVTSourceCodeSymbolKind classSymbolKind]]) {
         for (IDEIndexCategorySymbol *category in class.categories) {
-            if (category.isInProject && category.resolution.length) {
-                if ([currentClasses containsObject:category.resolution]) {
-                    [currentClasses removeObject:category.resolution];
-                } else {
-                    [palettesForClassNames setObject:[CrayonsPalette paletteWithCategorySymbol:category] forKey:category.resolution];
-                }
-            }
+            handleSymbol(category);
         }
     }
-    for (NSString *oldClass in currentClasses) {
+    for (NSString *oldClass in currentResolutions) {
         DLog(@"🖍 removed old palette class %@", oldClass);
-        [palettes removeObject:palettesForClassNames[oldClass]];
-        [palettesForClassNames removeObjectForKey:oldClass];
+        [palettes removeObject:palettesForResolutions[oldClass]];
+        [palettesForResolutions removeObjectForKey:oldClass];
     }
-    return palettes;
+    self.palettesFilePaths = filePaths;
+    if (palettesForResolutions.count) {
+        IBLiveViewsManager *liveViewsManager = [NSClassFromString(@"IBLiveViewsManager") managerForWorkspace:self];
+        if (liveViewsManager && !liveViewsManager.isEnabled) {
+            liveViewsManager.enabled = YES;
+            DLog(@"🖍 LiveViewsManager enabled");
+            [liveViewsManager invalidateBundleForDependenciesOfSourceFilesAtPaths:[filePaths allObjects] forceRebuild:NO];
+        }
+    }
+}
+
+- (void)invalidatePalettesForClassNames:(NSArray *)names
+{
+    for (CrayonsPalette *palette in self.palettes) {
+        if ([names containsObject:palette.className]) {
+            DLog(@"🖍 invalidated palette for class %@", palette.className);
+            [palette invalidate];
+        }
+    }
+}
+
+- (void)updateColors:(CrayonsPalette *)palette methods:(id)methods
+{
+    NSMutableSet *currentColors = [[palette.colors allKeys] mutableCopy];
+    for (IDEIndexCallableSymbol *method in methods) {
+        NSString *methodName = method.name;
+        if (([[[method returnType] name] isEqualToString:@"UIColor"] || [[method resolution] hasSuffix:@"UIColor"]) && [method numArguments] == 0) {
+            if ([methodName hasSuffix:@"()"]) {
+                methodName = [methodName substringToIndex:methodName.length - 2];
+            }
+            if ([currentColors containsObject:methodName]) {
+                [currentColors removeObject:methodName];
+            } else {
+                palette.colors[methodName] = [NSNull null];
+            }
+        } else if ([[method resolution] hasSuffix:@"ERR"]) {
+            // Sometimes the index gets corrupted, so we recreate it from scratch
+            //TODO: is there a better way to detect this? It looks like the index stops updating on corruption, so what happens
+            // if it's other methods that are corrupted instead of the ones we use?
+            [self.index _reopenDatabaseWithRemoval:YES];
+            DLog(@"🖍 Index corruption detected with %@, rebuilding", [method resolution]);
+        }
+    }
+    for (NSString *oldColor in currentColors) {
+        DLog(@"🖍 removed old color %@ in palette class %@", oldColor, palette.className);
+        [palette.colors removeObjectForKey:oldColor];
+    }
+}
+
+#pragma mark - Properties
+
+- (NSMutableDictionary *)palettesForResolutions
+{
+    NSMutableDictionary *palettesForResolutions = objc_getAssociatedObject(self, @selector(palettesForResolutions));
+    if (!palettesForResolutions) {
+        palettesForResolutions = [NSMutableDictionary new];
+        objc_setAssociatedObject(self, @selector(palettesForResolutions), palettesForResolutions, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return palettesForResolutions;
+}
+     
+- (id)indexNotificationObserver
+{
+    return objc_getAssociatedObject(self, @selector(indexNotificationObserver));
+}
+
+- (void)setIndexNotificationObserver:(id)indexNotificationObserver
+{
+    objc_setAssociatedObject(self, @selector(indexNotificationObserver), indexNotificationObserver, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSSet<DVTFilePath *> *)palettesFilePaths
+{
+    return objc_getAssociatedObject(self, @selector(palettesFilePaths));
+}
+
+- (void)setPalettesFilePaths:(NSSet<DVTFilePath *> *)palettesFilePaths
+{
+    objc_setAssociatedObject(self, @selector(palettesFilePaths), palettesFilePaths, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSArray<CrayonsPalette *> *)palettes
+{
+    return self.palettesForResolutions.allValues;
 }
 
 @end

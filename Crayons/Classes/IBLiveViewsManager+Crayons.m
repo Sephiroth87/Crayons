@@ -23,12 +23,7 @@
 {
     NSMutableSet *result = [self p__mainThread_filePathsContainingLiveClassesForProvider:arg1];
     IDEWorkspace *workspace = ((IBSourceCodeClassProvider *)arg1).workspace;
-    for (CrayonsPalette *palette in workspace.palettes) {
-        IDEIndexCollection *definitions = palette.categorySymbol ? palette.categorySymbol.definitions : palette.classSymbol.definitions;
-        for (IDEIndexSymbol *definition in definitions) {
-            [result addObject:[definition file]];
-        }
-    }
+    [result addObjectsFromArray:workspace.palettesFilePaths.allObjects];
     return result;
 }
 

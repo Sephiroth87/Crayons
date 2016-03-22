@@ -19,3 +19,6 @@
 - (void)deliverNotification:(id)arg1;
 
 @end
+
+@interface DVTFilePath : NSObject
+@end
