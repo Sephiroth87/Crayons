@@ -53,6 +53,10 @@ Look at the example project for more infos.
 Either way, restart Xcode to make it load
 
 ##Release notes
+###1.2
+- Xcode 7.3 support
+- Improved internal logic + bugfixes
+
 ###1.1
 - You can now use categories/extensions for secondary palettes, and automatic UIColor palettes
 
