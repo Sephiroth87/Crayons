@@ -130,6 +130,7 @@
             //TODO: is there a better way to detect this? It looks like the index stops updating on corruption, so what happens
             // if it's other methods that are corrupted instead of the ones we use?
             [self.index _reopenDatabaseWithRemoval:YES];
+            DLog(@"🖍 Index corruption detected with %@, rebuilding", [method resolution]);
         }
     }
     for (NSString *oldColor in currentColors) {
