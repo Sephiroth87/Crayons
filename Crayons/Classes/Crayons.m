@@ -66,6 +66,11 @@ NSString * const CrayonsNewVersionNotification = @"CrayonsNewVersionNotification
             [[DVTUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
             [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"CrayonsLastVersion"];
         }
+        
+        Class DVTLogAspect = objc_getClass("DVTLogAspect");
+        [[DVTLogAspect performSelector:NSSelectorFromString(@"logAspectWithName:") withObject:@"IBLiveViews"] performSelector:NSSelectorFromString(@"setLogLevel:") withObject:@3];
+        [[DVTLogAspect performSelector:NSSelectorFromString(@"logAspectWithName:") withObject:@"IBPlatformTool"] performSelector:NSSelectorFromString(@"setLogLevel:") withObject:@3];
+        [[DVTLogAspect performSelector:NSSelectorFromString(@"logAspectWithName:") withObject:@"IBMessageChannel"] performSelector:NSSelectorFromString(@"setLogLevel:") withObject:@3];
     }
     return self;
 }
