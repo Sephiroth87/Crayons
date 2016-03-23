@@ -48,15 +48,24 @@
     }
     if (colorsToUpdate.count || namesToUpdate.count) {
         IBStoryboardDocument *document = (IBStoryboardDocument *)inspector.inspectedDocument;
+        DLog(@"🖍 Document: %@", document);
         IBCocoaTouchTargetRuntime *runtime = [document cocoaTouchTargetRuntime];
+        DLog(@"🖍 Runtime: %@", runtime);
         IBLiveViewsManager *manager = [document liveViewsManager];
+        DLog(@"🖍 Manager: %@, %d", manager, manager.isEnabled);
         id platformDescription = [[NSClassFromString(@"IBCocoaTouchPlatformToolDescription") alloc] initWithTargetRuntime:runtime role:1 scaleFactor:self.window.backingScaleFactor];
-        IBCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededWithDescription:platformDescription returningFailedLoadResult:nil];
+        DLog(@"🖍 Platform: %@", platformDescription);
+        id failedLoadResult;
+        IBCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededWithDescription:platformDescription returningFailedLoadResult:&failedLoadResult];
+        DLog(@"🖍 Tool: %@", tool);
+        DLog(@"🖍 FailedLoadResult: %@", failedLoadResult);
         if (namesToUpdate.count) {
             DLog(@"🖍 updating missing palette names: %@", namesToUpdate);
             NSDictionary *updatedPaletteNames = [tool sendMessage:NSSelectorFromString(@"paletteNamesForClassNames:") toChannelDuring:^BOOL(SEL arg1, id arg2, id *arg3) {
                 IBMessageSendChannel *channel = arg2;
-                [channel sendMessage:arg1 returnValue:arg3 context:@{CrayonsIBMessageSendChannelCustomParametersKey: namesToUpdate} error:nil arguments:0];
+                NSError *error;
+                [channel sendMessage:arg1 returnValue:arg3 context:@{CrayonsIBMessageSendChannelCustomParametersKey: namesToUpdate} error:&error arguments:0];
+                DLog(@"🖍 Error: %@", error);
                 return YES;
             }];
             DLog(@"🖍 got names: %@", updatedPaletteNames);

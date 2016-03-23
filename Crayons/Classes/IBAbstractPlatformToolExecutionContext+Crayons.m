@@ -19,6 +19,7 @@
 - (BOOL)p_populateEnvironment:(id)arg1 launchContext:(id)arg2 error:(id *)arg3
 {
     BOOL result = [self p_populateEnvironment:arg1 launchContext:arg2 error:arg3];
+    DLog(@"🖍 Launching: %@", [arg2 toolName]);
     if ([[arg2 toolName] isEqualToString:@"IBDesignablesAgentCocoaTouch"]) {
         [arg1 setValue:[[[Crayons sharedPlugin].bundle pathForResource:@"CrayonsiOSSupport" ofType:@"framework"] stringByAppendingString:@"/CrayonsiOSSupport"] forKey:@"DYLD_INSERT_LIBRARIES"];
     }
