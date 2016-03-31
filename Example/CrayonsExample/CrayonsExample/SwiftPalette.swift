@@ -18,4 +18,8 @@ class SwiftPalette: NSObject {
         return UIColor.purpleColor()
     }
     
+    class var varColor: UIColor {
+        return UIColor.orangeColor()
+    }
+    
 }

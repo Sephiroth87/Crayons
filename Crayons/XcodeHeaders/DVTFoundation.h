@@ -11,6 +11,8 @@
 + (id)classMethodSymbolKind;
 + (id)classSymbolKind;
 
+@property(readonly, copy) NSString *identifier;
+
 @end
 
 @interface DVTUserNotificationCenter : NSObject <NSUserNotificationCenterDelegate>

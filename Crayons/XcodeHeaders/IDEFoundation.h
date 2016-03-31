@@ -35,6 +35,7 @@
 @interface IDEIndexSymbol : IDEIndexSymbolOccurrence
 
 @property(readonly, nonatomic) NSString *name;
+@property(readonly, nonatomic) DVTSourceCodeSymbolKind *symbolKind;
 @property(readonly, nonatomic) NSString *resolution;
 @property(readonly, nonatomic) IDEIndexCollection *definitions;
 @property(readonly, nonatomic, getter=isInProject) BOOL inProject;
@@ -52,16 +53,20 @@
 
 @end
 
-@interface IDEIndexClassSymbol : IDEIndexSymbol
+@interface IDEIndexContainerSymbol : IDEIndexSymbol
 
-- (id)classMethods;
+- (id)children;
+
+@end
+
+@interface IDEIndexClassSymbol : IDEIndexContainerSymbol
+
 - (id)categories;
 
 @end
 
-@interface IDEIndexCategorySymbol : IDEIndexSymbol
+@interface IDEIndexCategorySymbol : IDEIndexContainerSymbol
 
 - (id)relatedClass;
-- (id)classMethods;
 
 @end

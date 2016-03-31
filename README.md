@@ -25,10 +25,12 @@ Define a palette by adding the class method
 ```
 
 to any class (Class has to derive from NSObject at some level, so no pure Swift classes at the moment).
-To define a color, add a class method with any name that returns UIColor, for example
+To define a color, add a class method or variable with any name that returns UIColor, for example
 
  ```
  	+ (UIColor *)colorName
+	class func colorName() -> UIColor
+	class var colorName: UIColor
 ```
 
 Only methods with no parameters are supported at the moment, and only UIColors in the RGB and White color space (so no `colorWithPatternImage:`)
@@ -53,6 +55,9 @@ Look at the example project for more infos.
 Either way, restart Xcode to make it load
 
 ##Release notes
+###1.3
+- Add support for Swift class variables
+
 ###1.2
 - Xcode 7.3 support
 - Improved internal logic + bugfixes
