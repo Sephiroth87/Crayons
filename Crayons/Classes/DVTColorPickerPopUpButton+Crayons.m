@@ -51,7 +51,19 @@
         IBCocoaTouchTargetRuntime *runtime = [document cocoaTouchTargetRuntime];
         IBLiveViewsManager *manager = [document liveViewsManager];
         id platformDescription = [[NSClassFromString(@"IBCocoaTouchPlatformToolDescription") alloc] initWithTargetRuntime:runtime role:1 scaleFactor:self.window.backingScaleFactor];
-        IBCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededWithDescription:platformDescription returningFailedLoadResult:nil];
+        id failedLoadResult;
+        IBCocoaTouchToolProxy *tool = [manager cachedRequestProxyAttachingIfNeededWithDescription:platformDescription returningFailedLoadResult:&failedLoadResult];
+        if (!tool || failedLoadResult) {
+            DLog(@"🖍 Couldn't retrieve tool, %@", failedLoadResult);
+            NSMenu *colorsMenu = [self valueForKey: @"_colorsMenu"];
+            [colorsMenu addItem:[NSMenuItem separatorItem]];
+            NSMenuItem *item = [colorsMenu addItemWithTitle:@"🖍 The IBDesignable tool crashed, but it's not Crayons' fault" action:nil keyEquivalent:@""];
+            NSMenu *subMenu = [[NSMenu alloc] initWithTitle:@"Crash"];
+            NSMenuItem *subItem = [subMenu addItemWithTitle:@"Click for more info" action:@selector(toolCrashedMoreInfoAction) keyEquivalent:@""];
+            [subItem setTarget:self];
+            item.submenu = subMenu;
+            return;
+        }
         if (namesToUpdate.count) {
             DLog(@"🖍 updating missing palette names: %@", namesToUpdate);
             NSDictionary *updatedPaletteNames = [tool sendMessage:NSSelectorFromString(@"paletteNamesForClassNames:") toChannelDuring:^BOOL(SEL arg1, id arg2, id *arg3) {
@@ -117,6 +129,11 @@
             }
         }
     }
+}
+
+- (void)toolCrashedMoreInfoAction
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/Sephiroth87/Crayons/issues/6#issuecomment-203904784"]];
 }
 
 #pragma mark - Helpers

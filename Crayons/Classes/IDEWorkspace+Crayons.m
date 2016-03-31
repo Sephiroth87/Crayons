@@ -60,9 +60,9 @@
             CrayonsPalette *palette = palettesForResolutions[symbol.resolution] ?: [CrayonsPalette paletteWithSymbol:symbol];
             [currentResolutions removeObject:symbol.resolution];
             if ([symbol isKindOfClass:[IDEIndexClassSymbol class]]) {
-                [self updateColors:palette methods:((IDEIndexClassSymbol *)symbol).classMethods];
+                [self updateColors:palette symbols:((IDEIndexClassSymbol *)symbol).children];
             } else if ([symbol isKindOfClass:[IDEIndexCategorySymbol class]]) {
-                [self updateColors:palette methods:((IDEIndexCategorySymbol *)symbol).classMethods];
+                [self updateColors:palette symbols:((IDEIndexCategorySymbol *)symbol).children];
             }
             palettesForResolutions[symbol.resolution] = palette;
             for (IDEIndexSymbolOccurrence *occurrence in [symbol occurrences]) {
@@ -111,26 +111,37 @@
     }
 }
 
-- (void)updateColors:(CrayonsPalette *)palette methods:(id)methods
+- (void)updateColors:(CrayonsPalette *)palette symbols:(id)symbols
 {
     NSMutableSet *currentColors = [[palette.colors allKeys] mutableCopy];
-    for (IDEIndexCallableSymbol *method in methods) {
-        NSString *methodName = method.name;
-        if (([[[method returnType] name] isEqualToString:@"UIColor"] || [[method resolution] hasSuffix:@"UIColor"]) && [method numArguments] == 0) {
-            if ([methodName hasSuffix:@"()"]) {
-                methodName = [methodName substringToIndex:methodName.length - 2];
+    for (IDEIndexSymbol *symbol in symbols) {
+        if (symbol.symbolKind == [DVTSourceCodeSymbolKind classMethodSymbolKind]) {
+            IDEIndexCallableSymbol *method = (IDEIndexCallableSymbol *)symbol;
+            NSString *methodName = method.name;
+            if (([[[method returnType] name] isEqualToString:@"UIColor"] || [[method resolution] hasSuffix:@"UIColor"]) && [method numArguments] == 0) {
+                if ([methodName hasSuffix:@"()"]) {
+                    methodName = [methodName substringToIndex:methodName.length - 2];
+                }
+                if ([currentColors containsObject:methodName]) {
+                    [currentColors removeObject:methodName];
+                } else {
+                    palette.colors[methodName] = [NSNull null];
+                }
+            } else if ([[method resolution] hasSuffix:@"ERR"]) {
+                // Sometimes the index gets corrupted, so we recreate it from scratch
+                //TODO: is there a better way to detect this? It looks like the index stops updating on corruption, so what happens
+                // if it's other methods that are corrupted instead of the ones we use?
+                [self.index _reopenDatabaseWithRemoval:YES];
+                DLog(@"🖍 Index corruption detected with %@, rebuilding", [method resolution]);
             }
-            if ([currentColors containsObject:methodName]) {
-                [currentColors removeObject:methodName];
-            } else {
-                palette.colors[methodName] = [NSNull null];
+        } else if ([symbol.symbolKind.identifier isEqualToString:@"Xcode.SourceCodeSymbolKind.ClassProperty"]) {
+            if ([[symbol resolution] hasSuffix:@"UIColor"]) {
+                if ([currentColors containsObject:symbol.name]) {
+                    [currentColors removeObject:symbol.name];
+                } else {
+                    palette.colors[symbol.name] = [NSNull null];
+                }
             }
-        } else if ([[method resolution] hasSuffix:@"ERR"]) {
-            // Sometimes the index gets corrupted, so we recreate it from scratch
-            //TODO: is there a better way to detect this? It looks like the index stops updating on corruption, so what happens
-            // if it's other methods that are corrupted instead of the ones we use?
-            [self.index _reopenDatabaseWithRemoval:YES];
-            DLog(@"🖍 Index corruption detected with %@, rebuilding", [method resolution]);
         }
     }
     for (NSString *oldColor in currentColors) {
