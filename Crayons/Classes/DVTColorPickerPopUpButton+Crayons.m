@@ -106,16 +106,21 @@
             }
         }
     }
-    if ([palettes count]) {
+    // This is temporary until automatic storyboard updates are implemented, as a view has to track a precise palette from the chosen module, and not a random one
+    // that's equivalent to it. Also, since objc classes collision resolve in a random one being chose by the IBDesignables tool, that also will need some thikning
+    NSMutableOrderedSet *uniquePalettes = [NSMutableOrderedSet orderedSetWithArray:palettes];
+    NSCountedSet *uniquePaletteNames = [NSCountedSet setWithArray:[[uniquePalettes array] valueForKeyPath:@"@unionOfObjects.fullName"]];
+    if ([uniquePalettes count]) {
         NSMenu *colorsMenu = [self valueForKey: @"_colorsMenu"];
         [colorsMenu addItem:[NSMenuItem separatorItem]];
-        NSArray *sortedPalettes = [palettes sortedArrayUsingComparator:^NSComparisonResult(CrayonsPalette * _Nonnull obj1, CrayonsPalette * _Nonnull obj2) {
+        NSArray *sortedPalettes = [uniquePalettes sortedArrayUsingComparator:^NSComparisonResult(CrayonsPalette * _Nonnull obj1, CrayonsPalette * _Nonnull obj2) {
             return [obj1.name compare:obj2.name];
         }];
         for (CrayonsPalette *palette in sortedPalettes) {
             if (palette.name && palette.colors.count) {
-                NSMenuItem *item = [colorsMenu addItemWithTitle:[palette fullName] action:nil keyEquivalent:@""];
-                NSMenu *paletteColorsMenu = [[NSMenu alloc] initWithTitle:[palette fullName]];
+                NSString *title = [uniquePaletteNames countForObject:[palette fullName]] > 1 && palette.moduleName ? [[palette fullName] stringByAppendingFormat:@" (%@)", palette.moduleName] : [palette fullName];
+                NSMenuItem *item = [colorsMenu addItemWithTitle:title action:nil keyEquivalent:@""];
+                NSMenu *paletteColorsMenu = [[NSMenu alloc] initWithTitle:title];
                 for (NSString *colorName in [palette.colors.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]) {
                     id color = palette.colors[colorName];
                     if (color && color != [NSNull null]) {

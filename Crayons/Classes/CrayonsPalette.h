@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, readonly, copy) NSString *className;
 @property (nonatomic, readonly, copy) NSString *objcClassName;
+@property (nonatomic, readonly, copy) NSString *moduleName;
 @property (assign, getter=isValid) BOOL valid;
 
 + (instancetype)paletteWithSymbol:(IDEIndexSymbol *)symbol;

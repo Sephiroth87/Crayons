@@ -28,7 +28,7 @@
 
 + (void)c_addMethod:(SEL)origSel toClass:(Class)otherClass {
     Method origMethod = class_getInstanceMethod(self, origSel);
-    BOOL b = class_addMethod(otherClass,
+    class_addMethod(otherClass,
                     origSel,
                     class_getMethodImplementation(self, origSel),
                     method_getTypeEncoding(origMethod));

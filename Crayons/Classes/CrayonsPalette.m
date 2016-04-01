@@ -14,6 +14,7 @@
 @property (nonatomic, readwrite, copy) NSString *className;
 @property (nonatomic, readwrite, copy) NSString *categoryName;
 @property (nonatomic, readwrite, copy) NSString *objcClassName;
+@property (nonatomic, readwrite, copy) NSString *moduleName;
 
 @end
 
@@ -44,6 +45,7 @@
         [scanner scanInteger:&length];
         [scanner scanUpToCharactersFromSet:[NSCharacterSet new] intoString:&className];
         palette.objcClassName = [NSString stringWithFormat:@"%@.%@", moduleName, className];
+        palette.moduleName = moduleName;
     } else {
         palette.objcClassName = classSymbol.name;
     }
@@ -68,6 +70,17 @@
         return _name;
     }
     return nil;
+}
+
+- (BOOL)isEqual:(id)object
+{
+    CrayonsPalette *other = (CrayonsPalette *)object;
+    return [other.className isEqualToString:_className] && [[other fullName] isEqualToString:[self fullName]] && [other.colors isEqualToDictionary:_colors];
+}
+
+- (NSUInteger)hash
+{
+    return _className.hash ^ [self fullName].hash ^ _colors.hash;
 }
 
 @end
